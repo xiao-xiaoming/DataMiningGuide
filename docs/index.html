@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>面向程序员的数据挖掘指南</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+	var gitalkConfig = {
+	  clientID: '8e6bc57bb3f5cd52674c',
+	  clientSecret: '030f7b6bd7ed8991075c74768046f52adf8d6908',
+	  repo: 'DataMiningGuide',
+	  owner: 'xiao-xiaoming',
+	  admin: ['xiao-xiaoming'],
+	  distractionFreeMode: false  // Facebook-like distraction free mode
+	}
+    window.$docsify = {
+      name: '面向程序员的数据挖掘指南',
+	  loadSidebar: true,
+	  subMaxLevel: 3,
+	  auto2top: true,
+	  noEmoji: false,
+	  repo: 'xiao-xiaoming/DataMiningGuide',
+	  alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+	  plugins: [
+        function (hook, vm) {
+          hook.doneEach(function() {
+            var label, domObj, main, divEle, gitalk;
+            label = vm.route.path.split("/").pop();
+            domObj = Docsify.dom;
+            main = domObj.getNode("#main");
+            Array.apply(
+              null,
+              document.querySelectorAll("div.gitalk-container")
+            ).forEach(function(ele) {
+              ele.remove();
+            });
+            divEle = domObj.create("div");
+            divEle.id = "gitalk-container-" + label;
+            divEle.className = "gitalk-container";
+            divEle.style = "width: " + main.clientWidth + "px; margin: 0 auto 20px;";
+            domObj.appendTo(domObj.find(".content"), divEle);
+            gitalk = new Gitalk(
+              Object.assign(gitalkConfig, { id: !label ? "home" : label })
+            );
+            gitalk.render("gitalk-container-" + label);
+          });
+        }
+      ]
+    }
+
+  </script>
+  
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <!-- CDN files for docsify-katex -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+  <!-- or <script src="//cdn.jsdelivr.net/gh/upupming/docsify-katex@latest/dist/docsify-katex.js"></script> -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
+  
+  <script src="//unpkg.com/prismjs/components/prism-python.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+
+</body>
+</html>
+
