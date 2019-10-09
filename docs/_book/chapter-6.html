@@ -1,0 +1,1112 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>第六章：朴素贝叶斯 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="chapter-7.html" />
+    
+    
+    <link rel="prev" href="chapter-5.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="chapter-1.html">
+            
+                <a href="chapter-1.html">
+            
+                    
+                    第一章：简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="chapter-2.html">
+            
+                <a href="chapter-2.html">
+            
+                    
+                    第二章：推荐系统入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="chapter-3.html">
+            
+                <a href="chapter-3.html">
+            
+                    
+                    第三章：隐式评价和基于物品的过滤算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="chapter-4.html">
+            
+                <a href="chapter-4.html">
+            
+                    
+                    第四章：分类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="chapter-5.html">
+            
+                <a href="chapter-5.html">
+            
+                    
+                    第五章：进一步探索分类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="chapter-6.html">
+            
+                <a href="chapter-6.html">
+            
+                    
+                    第六章：朴素贝叶斯
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="chapter-7.html">
+            
+                <a href="chapter-7.html">
+            
+                    
+                    第七章：朴素贝叶斯算法和非结构化文本
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="chapter-8.html">
+            
+                <a href="chapter-8.html">
+            
+                    
+                    第八章：聚类
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >第六章：朴素贝叶斯</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x7B2C;&#x516D;&#x7AE0;&#xFF1A;&#x6982;&#x7387;&#x548C;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;">&#x7B2C;&#x516D;&#x7AE0;&#xFF1A;&#x6982;&#x7387;&#x548C;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;</h1>
+<h2 id="&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;">&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;</h2>
+<p>&#x8FD8;&#x662F;&#x8BA9;&#x6211;&#x4EEC;&#x56DE;&#x5230;&#x8FD0;&#x52A8;&#x5458;&#x7684;&#x4F8B;&#x5B50;&#x3002;&#x5982;&#x679C;&#x6211;&#x95EE;&#x4F60;Brittney Griner&#x7684;&#x8FD0;&#x52A8;&#x9879;&#x76EE;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x5979;&#x6709;6&#x5C3A;8&#x5BF8;&#x9AD8;&#xFF0C;207&#x78C5;&#x91CD;&#xFF0C;&#x4F60;&#x4F1A;&#x8BF4;&#x201C;&#x7BEE;&#x7403;&#x201D;&#xFF1B;&#x6211;&#x518D;&#x95EE;&#x4F60;&#x5BF9;&#x6B64;&#x5206;&#x7C7B;&#x7684;&#x51C6;&#x786E;&#x5EA6;&#x6709;&#x591A;&#x5C11;&#x4FE1;&#x5FC3;&#xFF0C;&#x4F60;&#x4F1A;&#x56DE;&#x7B54;&#x201C;&#x975E;&#x5E38;&#x6709;&#x4FE1;&#x5FC3;&#x201D;&#x3002;</p>
+<p>&#x6211;&#x518D;&#x95EE;&#x4F60;Heather Zurich&#xFF0C;6&#x5C3A;1&#x5BF8;&#x9AD8;&#xFF0C;&#x91CD;176&#x78C5;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x5C31;&#x4E0D;&#x80FD;&#x786E;&#x5B9A;&#x5730;&#x8BF4;&#x5979;&#x662F;&#x6253;&#x7BEE;&#x7403;&#x7684;&#x4E86;&#xFF0C;&#x81F3;&#x5C11;&#x4E0D;&#x4F1A;&#x50CF;&#x4E4B;&#x524D;&#x5224;&#x5B9A;Brittney&#x90A3;&#x6837;&#x80AF;&#x5B9A;&#x3002;&#x56E0;&#x4E3A;&#x4ECE;Heather&#x7684;&#x8EAB;&#x9AD8;&#x4F53;&#x91CD;&#x6765;&#x770B;&#x5979;&#x4E5F;&#x6709;&#x53EF;&#x80FD;&#x662F;&#x8DD1;&#x9A6C;&#x62C9;&#x677E;&#x7684;&#x3002;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6211;&#x518D;&#x95EE;&#x4F60;Yumiko Hara&#x7684;&#x8FD0;&#x52A8;&#x9879;&#x76EE;&#xFF0C;&#x5979;5&#x5C3A;4&#x5BF8;&#x9AD8;&#xFF0C;95&#x78C5;&#x91CD;&#xFF0C;&#x4F60;&#x4E5F;&#x8BB8;&#x4F1A;&#x8BF4;&#x5979;&#x662F;&#x8DF3;&#x4F53;&#x64CD;&#x7684;&#xFF0C;&#x4F46;&#x4E5F;&#x4E0D;&#x592A;&#x6562;&#x80AF;&#x5B9A;&#xFF0C;&#x56E0;&#x4E3A;&#x6709;&#x4E9B;&#x9A6C;&#x62C9;&#x677E;&#x8FD0;&#x52A8;&#x5458;&#x4E5F;&#x662F;&#x7C7B;&#x4F3C;&#x7684;&#x8EAB;&#x9AD8;&#x4F53;&#x91CD;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-1.png" alt=""></p>
+<p>&#x4F7F;&#x7528;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5F88;&#x96BE;&#x5BF9;&#x5206;&#x7C7B;&#x7ED3;&#x679C;&#x7684;&#x7F6E;&#x4FE1;&#x5EA6;&#x8FDB;&#x884C;&#x91CF;&#x5316;&#x3002;&#x4F46;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x57FA;&#x4E8E;&#x6982;&#x7387;&#x7684;&#x5206;&#x7C7B;&#x7B97;&#x6CD5;&#x2014;&#x2014;&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x2014;&#x2014;&#x90A3;&#x5C31;&#x53EF;&#x4EE5;&#x7ED9;&#x51FA;&#x5206;&#x7C7B;&#x7ED3;&#x679C;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x4E86;&#xFF1A;&#x8FD9;&#x540D;&#x8FD0;&#x52A8;&#x5458;&#x6709;80%&#x7684;&#x51E0;&#x7387;&#x662F;&#x7BEE;&#x7403;&#x8FD0;&#x52A8;&#x5458;&#xFF1B;&#x8FD9;&#x4F4D;&#x75C5;&#x4EBA;&#x6709;40%&#x7684;&#x51E0;&#x7387;&#x60A3;&#x6709;&#x7CD6;&#x5C3F;&#x75C5;&#xFF1B;&#x62C9;&#x65AF;&#x514B;&#x9C81;&#x585E;&#x65AF;24&#x5C0F;&#x65F6;&#x5185;&#x6709;&#x96E8;&#x7684;&#x6982;&#x7387;&#x662F;10%&#x3002;</p>
+<p>&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x53C8;&#x79F0;&#x4E3A;<strong>&#x88AB;&#x52A8;&#x5B66;&#x4E60;</strong>&#x7B97;&#x6CD5;&#x3002;&#x8FD9;&#x79CD;&#x7B97;&#x6CD5;&#x53EA;&#x662F;&#x5C06;&#x8BAD;&#x7EC3;&#x96C6;&#x7684;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x5728;&#x6536;&#x5230;&#x6D4B;&#x8BD5;&#x6570;&#x636E;&#x65F6;&#x624D;&#x4F1A;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6709;10&#x4E07;&#x9996;&#x97F3;&#x4E50;&#xFF0C;&#x90A3;&#x6BCF;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x5206;&#x7C7B;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x904D;&#x5386;&#x8FD9;10&#x4E07;&#x6761;&#x8BB0;&#x5F55;&#x624D;&#x884C;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-2.png" alt=""></p>
+<p>&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x5219;&#x662F;&#x4E00;&#x79CD;<strong>&#x4E3B;&#x52A8;&#x5B66;&#x4E60;</strong>&#x7B97;&#x6CD5;&#x3002;&#x5B83;&#x4F1A;&#x6839;&#x636E;&#x8BAD;&#x7EC3;&#x96C6;&#x6784;&#x5EFA;&#x8D77;&#x4E00;&#x4E2A;&#x6A21;&#x578B;&#xFF0C;&#x5E76;&#x7528;&#x8FD9;&#x4E2A;&#x6A21;&#x578B;&#x6765;&#x5BF9;&#x65B0;&#x7684;&#x8BB0;&#x5F55;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#xFF0C;&#x56E0;&#x6B64;&#x901F;&#x5EA6;&#x4F1A;&#x5FEB;&#x5F88;&#x591A;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-3.png" alt=""></p>
+<p>&#x6240;&#x4EE5;&#x8BF4;&#xFF0C;&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x7684;&#x4E24;&#x4E2A;&#x4F18;&#x70B9;&#x5373;&#xFF1A;&#x80FD;&#x591F;&#x7ED9;&#x51FA;&#x5206;&#x7C7B;&#x7ED3;&#x679C;&#x7684;&#x7F6E;&#x4FE1;&#x5EA6;&#xFF1B;&#x4EE5;&#x53CA;&#x5B83;&#x662F;&#x4E00;&#x79CD;&#x4E3B;&#x52A8;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;&#x3002;</p>
+<h3 id="&#x6982;&#x7387;">&#x6982;&#x7387;</h3>
+<p>&#x76F8;&#x4FE1;&#x5927;&#x591A;&#x6570;&#x4EBA;&#x5BF9;&#x6982;&#x7387;&#x5E76;&#x4E0D;&#x964C;&#x751F;&#x3002;&#x6BD4;&#x5982;&#x6295;&#x63B7;&#x4E00;&#x4E2A;&#x786C;&#x5E01;&#xFF0C;&#x6B63;&#x9762;&#x51FA;&#x73B0;&#x7684;&#x6982;&#x7387;&#x662F;50%&#xFF1B;&#x63B7;&#x9AB0;&#x5B50;&#xFF0C;&#x51FA;&#x73B0;1&#x70B9;&#x7684;&#x6982;&#x7387;&#x662F;16.7%&#xFF1B;&#x4ECE;&#x4E00;&#x7FA4;19&#x5C81;&#x7684;&#x9752;&#x5C11;&#x5E74;&#x4E2D;&#x968F;&#x673A;&#x6311;&#x51FA;&#x4E00;&#x4E2A;&#xFF0C;&#x8BA9;&#x4F60;&#x8BF4;&#x51FA;&#x5979;&#x662F;&#x5973;&#x751F;&#x7684;&#x53EF;&#x80FD;&#x6027;&#xFF0C;&#x4F60;&#x4F1A;&#x56DE;&#x7B54;50%&#x3002;&#x4EE5;&#x4E0A;&#x8FD9;&#x4E9B;&#x6211;&#x4EEC;&#x7528;&#x7B26;&#x53F7;P(h)&#x6765;&#x8868;&#x793A;&#xFF0C;&#x5373;&#x4E8B;&#x4EF6;h&#x53D1;&#x751F;&#x7684;&#x6982;&#x7387;&#xFF1A;</p>
+<ul>
+<li>&#x6295;&#x63B7;&#x786C;&#x5E01;&#xFF1A;P(&#x6B63;&#x9762;) = 0.5</li>
+<li>&#x63B7;&#x9AB0;&#x5B50;&#xFF1A;P(1) = 1/6</li>
+<li>&#x9752;&#x5C11;&#x5E74;&#xFF1A;P(&#x5973;&#x751F;) = 0.5</li>
+</ul>
+<p>&#x5982;&#x679C;&#x6211;&#x518D;&#x544A;&#x8BC9;&#x4F60;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x6BD4;&#x5982;&#x8FD9;&#x7FA4;19&#x5C81;&#x7684;&#x9752;&#x5C11;&#x5E74;&#x90FD;&#x662F;&#x5F17;&#x5170;&#x79D1;&#x5B66;&#x9662;&#x5EFA;&#x7B51;&#x4E13;&#x4E1A;&#x7684;&#x5B66;&#x751F;&#xFF0C;&#x4E8E;&#x662F;&#x4F60;&#x5230;Google&#x4E0A;&#x641C;&#x7D22;&#x540E;&#x53D1;&#x73B0;&#x8FD9;&#x6240;&#x5927;&#x5B66;&#x7684;&#x5973;&#x751F;&#x5360;86%&#xFF0C;&#x8FD9;&#x65F6;&#x4F60;&#x5C31;&#x4F1A;&#x6539;&#x53D8;&#x4F60;&#x7684;&#x7B54;&#x6848;&#x2014;&#x2014;&#x5973;&#x751F;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x662F;86%&#x3002;</p>
+<p>&#x8FD9;&#x4E00;&#x60C5;&#x5F62;&#x6211;&#x4EEC;&#x7528;P(h|D)&#x6765;&#x8868;&#x793A;&#xFF0C;&#x5373;D&#x6761;&#x4EF6;&#x4E0B;&#x4E8B;&#x4EF6;h&#x53D1;&#x751F;&#x7684;&#x6982;&#x7387;&#x3002;&#x6BD4;&#x5982;&#xFF1A;</p>
+<p>P(&#x5973;&#x751F;|&#x5F17;&#x5170;&#x514B;&#x5B66;&#x9662;&#x7684;&#x5B66;&#x751F;) = 0.86</p>
+<p>&#x8BA1;&#x7B97;&#x7684;&#x516C;&#x5F0F;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-4.png" alt=""></p>
+<p>&#x518D;&#x4E3E;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x4E0B;&#x8868;&#x662F;&#x4E00;&#x4E9B;&#x4EBA;&#x4F7F;&#x7528;&#x7B14;&#x8BB0;&#x672C;&#x7535;&#x8111;&#x548C;&#x624B;&#x673A;&#x7684;&#x54C1;&#x724C;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-5.png" alt=""></p>
+<p>&#x4F7F;&#x7528;iPhone&#x7684;&#x6982;&#x7387;&#x662F;&#x591A;&#x5C11;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-6.png" alt=""></p>
+<p>&#x5982;&#x679C;&#x5DF2;&#x77E5;&#x8FD9;&#x4E2A;&#x4EBA;&#x4F7F;&#x7528;&#x7684;&#x662F;Mac&#x7B14;&#x8BB0;&#x672C;&#xFF0C;&#x90A3;&#x4ED6;&#x4F7F;&#x7528;iPhone&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-7.png" alt=""></p>
+<p>&#x9996;&#x5148;&#x8BA1;&#x7B97;&#x51FA;&#x540C;&#x65F6;&#x4F7F;&#x7528;Mac&#x548C;iPhone&#x7684;&#x6982;&#x7387;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-8.png" alt=""></p>
+<p>&#x4F7F;&#x7528;Mac&#x7684;&#x6982;&#x7387;&#x5219;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-9.png" alt=""></p>
+<p>&#x4ECE;&#x800C;&#x8BA1;&#x7B97;&#x5F97;&#x5230;Mac&#x7528;&#x6237;&#x4E2D;&#x4F7F;&#x7528;iPhone&#x7684;&#x6982;&#x7387;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-10.png" alt=""></p>
+<p>&#x4EE5;&#x4E0A;&#x662F;&#x6B63;&#x89C4;&#x7684;&#x89E3;&#x6CD5;&#xFF0C;&#x4E0D;&#x8FC7;&#x4E3A;&#x4E86;&#x7B80;&#x5355;&#x8D77;&#x89C1;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x8FC7;&#x8BA1;&#x6570;&#x5F97;&#x5230;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-11.png" alt=""></p>
+<p><strong>&#x7EC3;&#x4E60;</strong></p>
+<p>iPhone&#x7528;&#x6237;&#x4E2D;&#x4F7F;&#x7528;Mac&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-12.png" alt=""></p>
+<p><strong>&#x672F;&#x8BED;</strong></p>
+<p>P(h)&#x8868;&#x793A;&#x4E8B;&#x4EF6;h&#x53D1;&#x751F;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x79F0;&#x4E3A;h&#x7684;<strong>&#x5148;&#x9A8C;&#x6982;&#x7387;</strong>&#x3002;&#x5728;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x8BA1;&#x7B97;&#x4E4B;&#x524D;&#x5C31;&#x5DF2;&#x7ECF;&#x5F97;&#x77E5;&#x4EBA;&#x4EEC;&#x4F7F;&#x7528;Mac&#x7684;&#x6982;&#x7387;&#x662F;0.6&#x3002;&#x8BA1;&#x7B97;&#x4E4B;&#x540E;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x4F1A;&#x5F97;&#x77E5;&#x4F7F;&#x7528;Mac&#x7684;&#x4EBA;&#x540C;&#x65F6;&#x4F1A;&#x4F7F;&#x7528;iPhone&#x3002;</p>
+<p>P(h|d)&#x79F0;&#x4E3A;<strong>&#x540E;&#x9A8C;&#x6982;&#x7387;</strong>&#xFF0C;&#x8868;&#x793A;&#x5728;&#x89C2;&#x5BDF;&#x4E86;&#x6570;&#x636E;&#x96C6;d&#x4E4B;&#x540E;&#xFF0C;h&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x7684;&#x6982;&#x7387;&#x662F;&#x591A;&#x5C11;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x89C2;&#x5BDF;&#x4E86;&#x4F7F;&#x7528;iPhone&#x7684;&#x7528;&#x6237;&#x540E;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#x4ED6;&#x4EEC;&#x4F7F;&#x7528;Mac&#x7684;&#x6982;&#x7387;&#x662F;&#x591A;&#x5C11;&#x3002;&#x540E;&#x9A8C;&#x6982;&#x7387;&#x53C8;&#x79F0;&#x4E3A;<strong>&#x6761;&#x4EF6;&#x6982;&#x7387;</strong>&#x3002;</p>
+<p>&#x5728;&#x6784;&#x5EFA;&#x4E00;&#x4E2A;&#x8D1D;&#x53F6;&#x65AF;&#x5206;&#x7C7B;&#x5668;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x4E24;&#x4E2A;&#x6982;&#x7387;&#xFF1A;P(D)&#x548C;P(D|h)&#xFF0C;&#x8BF7;&#x770B;&#x4E0B;&#x9762;&#x7684;&#x793A;&#x4F8B;&#x3002;</p>
+<h2 id="&#x5FAE;&#x8F6F;&#x8D2D;&#x7269;&#x8F66;">&#x5FAE;&#x8F6F;&#x8D2D;&#x7269;&#x8F66;</h2>
+<p>&#x4F60;&#x542C;&#x8BF4;&#x8FC7;&#x5FAE;&#x8F6F;&#x7684;&#x667A;&#x80FD;&#x8D2D;&#x7269;&#x8F66;&#x5417;&#xFF1F;&#x6CA1;&#x9519;&#xFF0C;&#x4ED6;&#x4EEC;&#x771F;&#x6709;&#x8FD9;&#x6837;&#x7684;&#x4EA7;&#x54C1;&#x3002;&#x8FD9;&#x4E2A;&#x4EA7;&#x54C1;&#x662F;&#x5FAE;&#x8F6F;&#x548C;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;Chaotic Moon&#x7684;&#x516C;&#x53F8;&#x5408;&#x4F5C;&#x5F00;&#x53D1;&#x7684;&#x3002;&#x8FD9;&#x5BB6;&#x516C;&#x53F8;&#x7684;&#x6807;&#x8BED;&#x662F;&#x201C;&#x6211;&#x4EEC;&#x6BD4;&#x4F60;&#x806A;&#x660E;&#xFF0C;&#x6211;&#x4EEC;&#x6BD4;&#x4F60;&#x6709;&#x521B;&#x9020;&#x529B;&#x3002;&#x201D;&#x4F60;&#x53EF;&#x4EE5;&#x4F1A;&#x89C9;&#x5F97;&#x8FD9;&#x6837;&#x7684;&#x6807;&#x8BED;&#x6709;&#x4E9B;&#x72C2;&#x5984;&#x81EA;&#x5927;&#xFF0C;&#x8FD9;&#x91CC;&#x6682;&#x4E14;&#x4E0D;&#x8C08;&#x3002;&#x8FD9;&#x79CD;&#x8D2D;&#x7269;&#x8F66;&#x7531;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#x7EC4;&#x6210;&#xFF1A;Windows 8&#x5E73;&#x677F;&#x7535;&#x8111;&#x3001;Kinect&#x4F53;&#x611F;&#x8BBE;&#x5907;&#x3001;&#x84DD;&#x7259;&#x8033;&#x673A;&#xFF08;&#x8D2D;&#x7269;&#x8F66;&#x53EF;&#x4EE5;&#x548C;&#x4F60;&#x8BF4;&#x8BDD;&#xFF09;&#x3001;&#x4EE5;&#x53CA;&#x7535;&#x52A8;&#x88C5;&#x7F6E;&#xFF08;&#x8D2D;&#x7269;&#x8F66;&#x53EF;&#x4EE5;&#x8DDF;&#x7740;&#x4F60;&#x8D70;&#xFF09;&#x3002;</p>
+<p>&#x4F60;&#x8D70;&#x8FDB;&#x4E00;&#x5BB6;&#x8D85;&#x5E02;&#xFF0C;&#x6301;&#x6709;&#x4E00;&#x5F20;&#x4F1A;&#x5458;&#x5361;&#xFF0C;&#x667A;&#x80FD;&#x8D2D;&#x7269;&#x8F66;&#x4F1A;&#x8BC6;&#x522B;&#x51FA;&#x4F60;&#xFF0C;&#x5B83;&#x4F1A;&#x8BB0;&#x5F55;&#x4F60;&#x7684;&#x8D2D;&#x7269;&#x8BB0;&#x5F55;&#xFF08;&#x5F53;&#x7136;&#x4E5F;&#x5305;&#x62EC;&#x5176;&#x4ED6;&#x4EBA;&#x7684;&#xFF09;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-13.png" alt=""></p>
+<p>&#x667A;&#x80FD;&#x8D2D;&#x7269;&#x8F66;&#x4E5F;&#x4F1A;&#x663E;&#x793A;&#x5E7F;&#x544A;&#xFF08;&#x6BD4;&#x5982;&#x65E5;&#x672C;&#x7684;Sensha&#x7EFF;&#x8336;&#xFF09;&#xFF0C;&#x4E0D;&#x8FC7;&#x5B83;&#x53EA;&#x4F1A;&#x5411;&#x90A3;&#x4E9B;&#x6709;&#x53EF;&#x80FD;&#x8D2D;&#x4E70;&#x6B64;&#x7269;&#x54C1;&#x7684;&#x7528;&#x6237;&#x8FDB;&#x884C;&#x5C55;&#x793A;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x793A;&#x4F8B;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-14.png" alt=""></p>
+<p><strong>P(D)</strong>&#x8868;&#x793A;&#x4ECE;&#x8BAD;&#x7EC3;&#x96C6;&#x6570;&#x636E;&#x4E2D;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x6BD4;&#x5982;&#x4E0A;&#x8868;&#x4E2D;&#x90AE;&#x7F16;&#x4E3A;88005&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1A;</p>
+<p>P(88005) = 0.5</p>
+<p><strong>P(D|h)</strong>&#x8868;&#x793A;&#x5728;&#x4E00;&#x5B9A;&#x6761;&#x4EF6;&#x4E0B;&#x7684;&#x89C2;&#x5BDF;&#x7ED3;&#x679C;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#x8D2D;&#x4E70;&#x8FC7;Sencha&#x7EFF;&#x8336;&#x7684;&#x4EBA;&#x4E2D;&#x90AE;&#x7F16;&#x4E3A;88005&#x7684;&#x6982;&#x7387;&#x4E3A;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-15.png" alt=""></p>
+<p><strong>&#x7EC3;&#x4E60;</strong></p>
+<p>&#x6CA1;&#x6709;&#x4E70;Sencha&#x7684;&#x4EBA;&#x4E2D;&#x90AE;&#x7F16;&#x4E3A;88005&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-16.png" alt=""></p>
+<p><em>&#x4E0A;&#x5F0F;&#x4E2D;&#x7684;&#x201C;&#x2510;&#x201D;&#x8868;&#x793A;&#x53D6;&#x53CD;</em></p>
+<p>&#x90AE;&#x7F16;&#x4E3A;88001&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1F;</p>
+<p>P(88001) = 0.3</p>
+<p>&#x8D2D;&#x4E70;&#x4E86;Sencha&#x7684;&#x4EBA;&#x4E2D;&#x90AE;&#x7F16;&#x4E3A;88001&#x7684;&#x6982;&#x7387;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-17.png" alt=""></p>
+<p>&#x6CA1;&#x6709;&#x8D2D;&#x4E70;Sencha&#x7684;&#x4EBA;&#x4E2D;&#x90AE;&#x7F16;&#x4E3A;88001&#x7684;&#x6982;&#x7387;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-18.png" alt=""></p>
+<h2 id="&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;">&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;</h2>
+<p>&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;&#x63CF;&#x8FF0;&#x4E86;P(h)&#x3001;P(h|D)&#x3001;P(D)&#x3001;&#x4EE5;&#x53CA;P(D|h)&#x8FD9;&#x56DB;&#x4E2A;&#x6982;&#x7387;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-19.png" alt=""></p>
+<p>&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x662F;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x8BBA;&#x7684;&#x57FA;&#x77F3;&#x3002;&#x5728;&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x4F1A;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x53BB;&#x5224;&#x522B;&#x4E0D;&#x540C;&#x4E8B;&#x4EF6;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x5728;&#x67D0;&#x4E9B;&#x6761;&#x4EF6;&#x4E0B;&#x8FD9;&#x4F4D;&#x8FD0;&#x52A8;&#x5458;&#x662F;&#x4ECE;&#x4E8B;&#x4F53;&#x64CD;&#x3001;&#x9A6C;&#x62C9;&#x677E;&#x3001;&#x8FD8;&#x662F;&#x7BEE;&#x7403;&#x9879;&#x76EE;&#x7684;&#xFF1B;&#x4E5F;&#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x67D0;&#x4E9B;&#x6761;&#x4EF6;&#x4E0B;&#x8FD9;&#x4F4D;&#x5BA2;&#x6237;&#x662F;&#x5426;&#x4F1A;&#x8D2D;&#x4E70;Sencha&#x7EFF;&#x8336;&#x7B49;&#x3002;&#x6211;&#x4EEC;&#x4F1A;&#x901A;&#x8FC7;&#x8BA1;&#x7B97;&#x4E0D;&#x540C;&#x4E8B;&#x4EF6;&#x7684;&#x6982;&#x7387;&#x6765;&#x5F97;&#x51FA;&#x7ED3;&#x8BBA;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#x6211;&#x4EEC;&#x8981;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x7ED9;&#x4E00;&#x4F4D;&#x5BA2;&#x6237;&#x5C55;&#x793A;Sencha&#x7EFF;&#x8336;&#x7684;&#x5E7F;&#x544A;&#xFF0C;&#x5DF2;&#x77E5;&#x4ED6;&#x6240;&#x5728;&#x7684;&#x5730;&#x533A;&#x90AE;&#x7F16;&#x662F;88005&#x3002;&#x6211;&#x4EEC;&#x6709;&#x4E24;&#x4E2A;&#x76F8;&#x53CD;&#x7684;&#x5047;&#x8BBE;&#xFF1A;</p>
+<ul>
+<li>&#x8FD9;&#x4F4D;&#x7528;&#x6237;&#x4F1A;&#x8D2D;&#x4E70;Sencha&#x7EFF;&#x8336;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x5373;&#xFF1A;P(&#x8D2D;&#x4E70;|88005)&#xFF1B;</li>
+<li>&#x4E0D;&#x4F1A;&#x8D2D;&#x4E70;&#x7684;&#x6982;&#x7387;&#xFF1A;P(&#x2510;&#x8D2D;&#x4E70;|88005)&#x3002;</li>
+</ul>
+<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x8BA1;&#x7B97;&#x5F97;&#x5230;P(&#x8D2D;&#x4E70;|88005) = 0.6&#xFF0C;&#x800C;P(&#x2510;&#x8D2D;&#x4E70;|88005) = 0.4&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x7528;&#x6237;&#x4F1A;&#x8D2D;&#x4E70;&#xFF0C;&#x4ECE;&#x800C;&#x663E;&#x793A;&#x76F8;&#x5E94;&#x7684;&#x5E7F;&#x544A;&#x3002;</p>
+<p>&#x518D;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x8981;&#x4E3A;&#x4E00;&#x5BB6;&#x9500;&#x552E;&#x7535;&#x5B50;&#x4EA7;&#x54C1;&#x7684;&#x516C;&#x53F8;&#x53D1;&#x9001;&#x5BA3;&#x4F20;&#x90AE;&#x4EF6;&#xFF0C;&#x5171;&#x6709;&#x7B14;&#x8BB0;&#x672C;&#x3001;&#x53F0;&#x5F0F;&#x673A;&#x3001;&#x5E73;&#x677F;&#x7535;&#x8111;&#x4E09;&#x79CD;&#x4EA7;&#x54C1;&#x3002;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6839;&#x636E;&#x76EE;&#x6807;&#x7528;&#x6237;&#x7684;&#x7C7B;&#x578B;&#x6765;&#x5206;&#x522B;&#x6D3E;&#x9001;&#x8FD9;&#x4E09;&#x79CD;&#x5BA3;&#x4F20;&#x90AE;&#x4EF6;&#x3002;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x4F4D;&#x5C45;&#x4F4F;&#x5728;88005&#x5730;&#x533A;&#x7684;&#x5973;&#x58EB;&#xFF0C;&#x5979;&#x7684;&#x5973;&#x513F;&#x5728;&#x8BFB;&#x5927;&#x5B66;&#xFF0C;&#x5E76;&#x5C45;&#x4F4F;&#x5728;&#x5BB6;&#x4E2D;&#xFF0C;&#x800C;&#x4E14;&#x5979;&#x8FD8;&#x4F1A;&#x53C2;&#x52A0;&#x745C;&#x4F3D;&#x8BFE;&#x7A0B;&#x3002;&#x90A3;&#x6211;&#x5E94;&#x8BE5;&#x6D3E;&#x53D1;&#x54EA;&#x79CD;&#x90AE;&#x4EF6;&#x5462;&#xFF1F;</p>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x7528;D&#x6765;&#x8868;&#x793A;&#x8FD9;&#x4F4D;&#x5BA2;&#x6237;&#x7684;&#x7279;&#x5F81;&#xFF1A;</p>
+<ul>
+<li>&#x5C45;&#x4F4F;&#x5728;88005&#x5730;&#x533A;</li>
+<li>&#x6709;&#x4E00;&#x4E2A;&#x6B63;&#x5728;&#x8BFB;&#x5927;&#x5B66;&#x7684;&#x5973;&#x513F;</li>
+<li>&#x7EC3;&#x4E60;&#x745C;&#x4F3D;</li>
+</ul>
+<p>&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#x4EE5;&#x4E0B;&#x4E09;&#x4E2A;&#x6982;&#x7387;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-20.png" alt=""></p>
+<p>&#x5E76;&#x9009;&#x62E9;&#x6982;&#x7387;&#x6700;&#x5927;&#x7684;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x518D;&#x62BD;&#x8C61;&#x4E00;&#x70B9;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x6709;h<sub>1</sub>, h<sub>2</sub>, ...h<sub>n</sub>&#x7B49;&#x4E8B;&#x4EF6;&#xFF0C;&#x5B83;&#x4EEC;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x4E0D;&#x540C;&#x7684;&#x7C7B;&#x522B;&#xFF08;&#x7BEE;&#x7403;&#x3001;&#x4F53;&#x64CD;&#x3001;&#x6216;&#x662F;&#x6709;&#x6CA1;&#x6709;&#x60A3;&#x7CD6;&#x5C3F;&#x75C5;&#x7B49;&#xFF09;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-21.png" alt=""></p>
+<p>&#x5728;&#x8BA1;&#x7B97;&#x51FA;&#x4EE5;&#x4E0A;&#x8FD9;&#x4E9B;&#x6982;&#x7387;&#x540E;&#xFF0C;&#x9009;&#x53D6;&#x6700;&#x5927;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x5C31;&#x80FD;&#x7528;&#x4F5C;&#x5206;&#x7C7B;&#x4E86;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x53EB;&#x6700;&#x5927;&#x540E;&#x9A8C;&#x4F30;&#x8BA1;&#xFF0C;&#x8BB0;&#x4E3A;h<sub>MAP</sub>&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-22.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x4EE5;&#x4E0B;&#x516C;&#x5F0F;&#x6765;&#x8868;&#x793A;&#x6700;&#x5927;&#x540E;&#x9A8C;&#x4F30;&#x8BA1;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-23.png" alt=""></p>
+<p>H&#x8868;&#x793A;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;h&#x2208;H&#x8868;&#x793A;&#x201C;&#x5BF9;&#x4E8E;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x201D;&#x3002;&#x6574;&#x4E2A;&#x516C;&#x5F0F;&#x7684;&#x542B;&#x4E49;&#x5C31;&#x662F;&#xFF1A;&#x5BF9;&#x4E8E;&#x96C6;&#x5408;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#xFF0C;&#x8BA1;&#x7B97;&#x51FA;P(h|D)&#x7684;&#x503C;&#xFF0C;&#x5E76;&#x53D6;&#x6700;&#x5927;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x4F7F;&#x7528;&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;&#x8FDB;&#x884C;&#x66FF;&#x6362;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-24.png" alt=""></p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#x7684;&#x5C31;&#x662F;&#x4EE5;&#x4E0B;&#x8FD9;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-25.png" alt=""></p>
+<p>&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x5BF9;&#x4E8E;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x516C;&#x5F0F;&#x4E2D;&#x7684;&#x5206;&#x6BCD;&#x90FD;&#x662F;P(D)&#xFF0C;&#x56E0;&#x6B64;&#x5373;&#x4FBF;&#x53EA;&#x8BA1;&#x7B97;P(D|h)P(h)&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x51FA;&#x6700;&#x5927;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x5C31;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x4E3A;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-26.png" alt=""></p>
+<p>&#x4F5C;&#x4E3A;&#x6F14;&#x793A;&#xFF0C;&#x6211;&#x4EEC;&#x9009;&#x53D6;Tom M. Mitchell&#x300A;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x300B;&#x4E2D;&#x7684;&#x4F8B;&#x5B50;&#x3002;Tom&#x662F;&#x5361;&#x8010;&#x57FA;&#x6885;&#x9686;&#x5927;&#x5B66;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x90E8;&#x7684;&#x9996;&#x5E2D;&#xFF0C;&#x4E5F;&#x662F;&#x975E;&#x5E38;&#x53CB;&#x597D;&#x7684;&#x4E00;&#x4E2A;&#x4EBA;&#x3002;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x6B21;&#x8840;&#x6DB2;&#x68C0;&#x9A8C;&#x6765;&#x5224;&#x65AD;&#x67D0;&#x4EBA;&#x662F;&#x5426;&#x60A3;&#x6709;&#x67D0;&#x79CD;&#x764C;&#x75C7;&#x3002;&#x5DF2;&#x77E5;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#x5728;&#x7F8E;&#x56FD;&#x7684;&#x611F;&#x67D3;&#x7387;&#x662F;0.8%&#x3002;&#x8840;&#x6DB2;&#x68C0;&#x9A8C;&#x7684;&#x7ED3;&#x679C;&#x6709;&#x9633;&#x6027;&#x548C;&#x9634;&#x6027;&#x4E24;&#x79CD;&#xFF0C;&#x4E14;&#x5B58;&#x5728;&#x51C6;&#x786E;&#x6027;&#x7684;&#x95EE;&#x9898;&#xFF1A;&#x5982;&#x679C;&#x8FD9;&#x4E2A;&#x4EBA;&#x60A3;&#x6709;&#x764C;&#x75C7;&#xFF0C;&#x5219;&#x6709;98%&#x7684;&#x51E0;&#x7387;&#x6D4B;&#x51FA;&#x9633;&#x6027;&#xFF1B;&#x5982;&#x679C;&#x4ED6;&#x6CA1;&#x6709;&#x764C;&#x75C7;&#xFF0C;&#x4F1A;&#x6709;97%&#x7684;&#x51E0;&#x7387;&#x6D4B;&#x51FA;&#x9634;&#x6027;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x5C1D;&#x8BD5;&#x5C06;&#x8FD9;&#x4E9B;&#x63CF;&#x8FF0;&#x8BED;&#x8A00;&#x7528;&#x516C;&#x5F0F;&#x6765;&#x8868;&#x793A;&#xFF1A;</p>
+<ul>
+<li>&#x7F8E;&#x56FD;&#x6709;0.8%&#x7684;&#x4EBA;&#x60A3;&#x6709;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#xFF1A;P(&#x764C;&#x75C7;) = 0.008</li>
+<li>99.2%&#x7684;&#x4EBA;&#x6CA1;&#x6709;&#x60A3;&#x6709;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#xFF1A;P(&#x2510;&#x764C;&#x75C7;) = 0.992</li>
+<li>&#x5BF9;&#x4E8E;&#x60A3;&#x6709;&#x764C;&#x75C7;&#x7684;&#x4EBA;&#xFF0C;&#x4ED6;&#x7684;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;&#x662F;98%&#xFF1A;P(&#x9633;&#x6027;|&#x764C;&#x75C7;) = 0.98</li>
+<li>&#x5BF9;&#x4E8E;&#x60A3;&#x6709;&#x764C;&#x75C7;&#x7684;&#x4EBA;&#xFF0C;&#x68C0;&#x6D4B;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x9634;&#x6027;&#x7684;&#x6982;&#x7387;&#x662F;2%&#xFF1A;P(&#x9634;&#x6027;|&#x764C;&#x75C7;) = 0.02</li>
+<li>&#x5BF9;&#x4E8E;&#x6CA1;&#x6709;&#x764C;&#x75C7;&#x7684;&#x4EBA;&#xFF0C;&#x8FD4;&#x56DE;&#x9634;&#x6027;&#x7684;&#x6982;&#x7387;&#x662F;97%&#xFF1A;P(&#x9634;&#x6027;|&#x2510;&#x764C;&#x75C7;) = 0.97</li>
+<li>&#x5BF9;&#x4E8E;&#x6CA1;&#x6709;&#x764C;&#x75C7;&#x7684;&#x4EBA;&#xFF0C;&#x8FD4;&#x56DE;&#x9633;&#x6027;&#x7684;&#x6982;&#x7387;&#x662F;3%&#xFF1A;P(&#x9633;&#x6027;|&#x2510;&#x764C;&#x75C7;) = 0.03</li>
+</ul>
+<p><img src="img/chapter-6/chapter-6-27.png" alt=""></p>
+<p>Ann&#x5230;&#x533B;&#x9662;&#x505A;&#x4E86;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#xFF0C;&#x5448;&#x9633;&#x6027;&#x3002;&#x521D;&#x770B;&#x7ED3;&#x679C;&#x5E76;&#x4E0D;&#x4E50;&#x89C2;&#xFF0C;&#x6BD5;&#x7ADF;&#x8FD9;&#x79CD;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#x7684;&#x51C6;&#x786E;&#x7387;&#x9AD8;&#x8FBE;98%&#x3002;&#x90A3;&#x8BA9;&#x6211;&#x4EEC;&#x7528;&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;&#x6765;&#x8BA1;&#x7B97;&#x770B;&#x770B;&#xFF1A;</p>
+<ul>
+<li>P(&#x9633;&#x6027;|&#x764C;&#x75C7;)P(&#x764C;&#x75C7;) = 0.98 * 0.008 = 0.0078</li>
+<li>P(&#x9633;&#x6027;|&#x2510;&#x764C;&#x75C7;)P(&#x2510;&#x764C;&#x75C7;) = 0.03 * 0.992 = 0.0298</li>
+</ul>
+<p>&#x5206;&#x7C7B;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x5979;&#x4E0D;&#x4F1A;&#x60A3;&#x6709;&#x764C;&#x75C7;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60F3;&#x5F97;&#x5230;&#x786E;&#x5207;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6807;&#x51C6;&#x5316;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-28.png" alt=""></p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#x4E3A;&#x9633;&#x6027;&#x7684;&#x4EBA;&#x60A3;&#x6709;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#x7684;&#x6982;&#x7387;&#x662F;21%&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-29.png" alt=""></p>
+<p>&#x53EF;&#x80FD;&#x4F60;&#x4F1A;&#x89C9;&#x5F97;&#x8FD9;&#x5E76;&#x4E0D;&#x5408;&#x60C5;&#x7406;&#xFF0C;&#x6BD5;&#x7ADF;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#x7684;&#x51C6;&#x786E;&#x7387;&#x6709;98%&#xFF0C;&#x800C;&#x7ED3;&#x679C;&#x5374;&#x8BF4;Ann&#x5F88;&#x53EF;&#x80FD;&#x5E76;&#x6CA1;&#x6709;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#x3002;&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x5F88;&#x591A;&#x4EBA;&#x90FD;&#x4F1A;&#x6709;&#x8FD9;&#x6837;&#x7684; &#x7591;&#x95EE;&#x3002;</p>
+<p>&#x6211;&#x6765;&#x8BF4;&#x660E;&#x4E00;&#x4E0B;&#x4E3A;&#x4EC0;&#x4E48;&#x4F1A;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x5F88;&#x591A;&#x4EBA;&#x53EA;&#x770B;&#x5230;&#x4E86;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#x7684;&#x51C6;&#x786E;&#x7387;&#x662F;98%&#xFF0C;&#x4F46;&#x6CA1;&#x6709;&#x8003;&#x8651;&#x5230;&#x5168;&#x7F8E;&#x53EA;&#x6709;0.8%&#x7684;&#x4EBA;&#x60A3;&#x6709;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x7ED9;&#x4E00;&#x4E2A;&#x6709;&#x7740;&#x4E00;&#x767E;&#x4E07;&#x4EBA;&#x53E3;&#x7684;&#x57CE;&#x5E02;&#x505A;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5176;&#x4E2D;&#x6709;8,000&#x4EBA;&#x60A3;&#x6709;&#x764C;&#x75C7;&#xFF0C;992,000&#x4EBA;&#x6CA1;&#x6709;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x5BF9;&#x4E8E;&#x90A3;8,000&#x4E2A;&#x764C;&#x75C7;&#x75C5;&#x4EBA;&#xFF0C;&#x6709;7,840&#x4E2A;&#x4EBA;&#x7684;&#x8840;&#x6DB2;&#x68C0;&#x6D4B;&#x7ED3;&#x679C;&#x4F1A;&#x5448;&#x9633;&#x6027;&#xFF0C;160&#x4EBA;&#x4F1A;&#x5448;&#x9634;&#x6027;&#x3002;&#x5BF9;&#x4E8E;992,000&#x4EBA;&#xFF0C;&#x6709;962,240&#x4EBA;&#x4F1A;&#x5448;&#x9634;&#x6027;&#xFF0C;30,000&#x4EBA;&#x5448;&#x9633;&#x6027;&#x3002;&#x5C06;&#x8FD9;&#x4E9B;&#x6570;&#x5B57;&#x603B;&#x7ED3;&#x5230;&#x4E0B;&#x8868;&#x4E2D;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-30.png" alt=""></p>
+<p>Ann&#x7684;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x5448;&#x9633;&#x6027;&#xFF0C;&#x4ECE;&#x4E0A;&#x8868;&#x770B;&#x9633;&#x6027;&#x4E2D;&#x6709;30,000&#x4EBA;&#x5176;&#x5B9E;&#x662F;&#x5065;&#x5EB7;&#x7684;&#xFF0C;&#x53EA;&#x6709;7,840&#x4EBA;&#x786E;&#x5B9E;&#x60A3;&#x6709;&#x764C;&#x75C7;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x624D;&#x4F1A;&#x8BA4;&#x4E3A;Ann&#x5F88;&#x6709;&#x53EF;&#x80FD;&#x662F;&#x5065;&#x5EB7;&#x7684;&#x3002;</p>
+<blockquote>
+<p>&#x8FD8;&#x662F;&#x6CA1;&#x5F04;&#x660E;&#x767D;&#xFF1F;&#x6CA1;&#x5173;&#x7CFB;&#xFF0C;&#x5728;&#x63A5;&#x89E6;&#x4E86;&#x66F4;&#x591A;&#x7EC3;&#x4E60;&#x540E;&#x5C31;&#x4F1A;&#x6162;&#x6162;&#x7406;&#x89E3;&#x4E86;&#x3002;</p>
+</blockquote>
+<h2 id="&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;&#xFF1F;">&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;&#xFF1F;</h2>
+<p>&#x9996;&#x5148;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#x8D1D;&#x53F6;&#x65AF;&#x516C;&#x5F0F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-19.png" alt=""></p>
+<p>&#x518D;&#x770B;&#x770B;&#x5FAE;&#x8F6F;&#x8D2D;&#x7269;&#x8F66;&#x7684;&#x6570;&#x636E;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-14.png" alt=""></p>
+<p>&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x4E3A;&#x5C45;&#x4F4F;&#x5728;&#x90AE;&#x7F16;&#x4E3A;88005&#x5730;&#x533A;&#x7684;&#x5BA2;&#x6237;&#x8BBE;&#x7F6E;&#x4E24;&#x4E2A;&#x4E8B;&#x4EF6;&#xFF1A;&#x4E70;&#x6216;&#x4E0D;&#x4E70;Sencha&#x7EFF;&#x8336;&#xFF0C;&#x5373;&#xFF1A;</p>
+<p>P(h<sub>1</sub>|D) = P(&#x4E70;&#x7EFF;&#x8336;|88005)</p>
+<p>P(h<sub>2</sub>|D) = P(&#x2510;&#x4E70;&#x7EFF;&#x8336;|88005)</p>
+<p>&#x4F60;&#x4E5F;&#x8BB8;&#x4F1A;&#x95EE;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x6982;&#x7387;&#x6211;&#x4EEC;&#x90FD;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4ECE;&#x6570;&#x636E;&#x4E2D;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x8BA1;&#x7B97;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x5462;&#xFF1F;</p>
+<p><img src="img/chapter-6/chapter-6-31.png" alt=""></p>
+<p>&#x90A3;&#x662F;&#x56E0;&#x4E3A;&#x5728;&#x73B0;&#x5B9E;&#x95EE;&#x9898;&#x4E2D;&#x8981;&#x8BA1;&#x7B97;P(h|D)&#x5F80;&#x5F80;&#x662F;&#x5F88;&#x56F0;&#x96BE;&#x7684;&#x3002;</p>
+<p>&#x4EE5;&#x4E0A;&#x4E00;&#x8282;&#x4E2D;&#x7684;&#x533B;&#x5B66;&#x793A;&#x4F8B;&#x6765;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x6839;&#x636E;&#x8840;&#x6DB2;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x6765;&#x5224;&#x65AD;&#x8BE5;&#x4EBA;&#x662F;&#x5426;&#x60A3;&#x6709;&#x764C;&#x75C7;&#xFF1A;</p>
+<p>P(&#x764C;&#x75C7;|&#x9633;&#x6027;) &#x2248; P(&#x9633;&#x6027;|&#x764C;&#x75C7;)P(&#x764C;&#x75C7;)</p>
+<p>P(&#x2510;&#x764C;&#x75C7;|&#x9633;&#x6027;) &#x2248; P(&#x9633;&#x6027;|&#x2510;&#x764C;&#x75C7;)P(&#x2510;&#x764C;&#x75C7;)</p>
+<p>&#x4E0A;&#x9762;&#x4E24;&#x4E2A;&#x5F0F;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x66F4;&#x5BB9;&#x6613;&#x8BA1;&#x7B97;&#x7EA6;&#x7B49;&#x53F7;&#x53F3;&#x8FB9;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x8981;&#x8BA1;&#x7B97;P(&#x9633;&#x6027;|&#x764C;&#x75C7;)&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5BF9;&#x4E00;&#x90E8;&#x5206;&#x5DF2;&#x7ECF;&#x786E;&#x8BCA;&#x6709;&#x764C;&#x75C7;&#x7684;&#x4EBA;&#x505A;&#x8840;&#x6DB2;&#x6D4B;&#x8BD5;&#xFF1B;&#x8BA1;&#x7B97;P(&#x9633;&#x6027;|&#x2510;&#x764C;&#x75C7;)&#x65F6;&#x5219;&#x53EF;&#x5BF9;&#x786E;&#x5B9A;&#x5065;&#x5EB7;&#x7684;&#x4EBA;&#x505A;&#x6D4B;&#x8BD5;&#x3002;&#x800C;P(&#x764C;&#x75C7;)&#x5219;&#x53EF;&#x76F4;&#x63A5;&#x4ECE;&#x653F;&#x5E9C;&#x516C;&#x5E03;&#x7684;&#x5B98;&#x65B9;&#x6570;&#x636E;&#x4E2D;&#x83B7;&#x5F97;&#xFF0C;P(&#x2510;&#x764C;&#x75C7;)&#x66F4;&#x662F;&#x7B80;&#x5355;&#x7684;1 - P(&#x764C;&#x75C7;)&#x3002;</p>
+<p>&#x4F46;&#x82E5;&#x8981;&#x8BA1;&#x7B97;P(&#x764C;&#x75C7;|&#x9633;&#x6027;&#xFF09;&#x7684;&#x8BDD;&#x5C31;&#x975E;&#x5E38;&#x6709;&#x6311;&#x6218;&#x6027;&#x4E86;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BA1;&#x7B97;&#x51FA;&#x6574;&#x4E2A;&#x4EBA;&#x7FA4;&#x4E2D;&#x8840;&#x6DB2;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x5448;&#x9633;&#x6027;&#x4E14;&#x786E;&#x8BCA;&#x4E3A;&#x764C;&#x75C7;&#x60A3;&#x8005;&#x7684;&#x6982;&#x7387;&#x3002;&#x5982;&#x679C;&#x91C7;&#x7528;&#x62BD;&#x6837;&#x6CD5;&#xFF0C;&#x5BF9;1000&#x4E2A;&#x4EBA;&#x8FDB;&#x884C;&#x62BD;&#x6837;&#x6D4B;&#x8BD5;&#xFF0C;&#x53EA;&#x6709;8&#x4E2A;&#x4EBA;&#x60A3;&#x6709;&#x8FD9;&#x79CD;&#x764C;&#x75C7;&#xFF0C;&#x8FD9;&#x6837;&#x5F97;&#x51FA;&#x7684;&#x7ED3;&#x679C;&#x663E;&#x7136;&#x4E0D;&#x5177;&#x6709;&#x4EE3;&#x8868;&#x6027;&#xFF0C;&#x9664;&#x975E;&#x8FDB;&#x4E00;&#x6B65;&#x52A0;&#x5927;&#x62BD;&#x6837;&#x6570;&#x91CF;&#x3002;&#x800C;&#x8D1D;&#x53F6;&#x65AF;&#x6CD5;&#x5219;&#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x4E3A;&#x7B80;&#x4FBF;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;">&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;</h3>
+<p>&#x5F88;&#x591A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x4F1A;&#x7528;&#x5230;&#x4E0D;&#x6B62;&#x4E00;&#x4E2A;&#x524D;&#x63D0;&#x6761;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x4EBA;&#x662F;&#x5426;&#x4F1A;&#x8D2D;&#x4E70;Sencha&#x7EFF;&#x8336;&#x65F6;&#x53EF;&#x4EE5;&#x7528;&#x5230;&#x987E;&#x5BA2;&#x6240;&#x5728;&#x5730;&#x4EE5;&#x53CA;&#x662F;&#x5426;&#x4E70;&#x8FC7;&#x6709;&#x673A;&#x98DF;&#x54C1;&#x8FD9;&#x4E24;&#x4E2A;&#x6761;&#x4EF6;&#x3002;&#x8BA1;&#x7B97;&#x8FD9;&#x6837;&#x7684;&#x6982;&#x7387;&#x65F6;&#x53EA;&#x9700;&#x5C06;&#x5404;&#x4E2A;&#x6761;&#x4EF6;&#x6982;&#x7387;&#x76F8;&#x4E58;&#x5373;&#x53EF;&#xFF1A;</p>
+<p>P(&#x4E70;&#x7EFF;&#x8336;|88005 &amp; &#x4E70;&#x6709;&#x673A;&#x98DF;&#x54C1;) = P(88005|&#x4E70;&#x7EFF;&#x8336;)P(&#x4E70;&#x6709;&#x673A;&#x98DF;&#x54C1;|&#x4E70;&#x7EFF;&#x8336;)P(&#x4E70;&#x7EFF;&#x8336;) = 0.6 <em> 0.8 </em> 0.5 = 0.24</p>
+<p>P(&#x2510;&#x4E70;&#x7EFF;&#x8336;|88005 &amp; &#x4E70;&#x6709;&#x673A;&#x98DF;&#x54C1;) = P(88005|&#x2510;&#x4E70;&#x7EFF;&#x8336;)P(&#x4E70;&#x6709;&#x673A;&#x98DF;&#x54C1;|&#x2510;&#x4E70;&#x7EFF;&#x8336;)P(&#x2510;&#x4E70;&#x7EFF;&#x8336;) = 0.4 <em> 0.25 </em> 0.5 = 0.05</p>
+<p>&#x6240;&#x4EE5;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x8BBA;&#x662F;&#x5C45;&#x4F4F;&#x5728;88005&#x5730;&#x533A;&#x4E14;&#x4E70;&#x8FC7;&#x6709;&#x673A;&#x98DF;&#x54C1;&#x7684;&#x5BA2;&#x6237;&#x66F4;&#x6709;&#x53EF;&#x80FD;&#x8D2D;&#x4E70;Sencha&#x7EFF;&#x8336;&#x3002;&#x8FD9;&#x6837;&#x5C31;&#x8BA9;&#x6211;&#x4EEC;&#x5728;&#x667A;&#x80FD;&#x8D2D;&#x7269;&#x8F66;&#x4E0A;&#x663E;&#x793A;&#x5E7F;&#x544A;&#x5427;&#xFF01;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x53F2;&#x63D0;&#x82AC;&#x8D1D;&#x514B;&#x5BF9;&#x667A;&#x80FD;&#x8D2D;&#x7269;&#x8F66;&#x7684;&#x8BC4;&#x4EF7;&#xFF1A;</p>
+<blockquote>
+<p>&#x8FD9;&#x79CD;&#x8D2D;&#x7269;&#x8F66;&#x7684;&#x4F7F;&#x7528;&#x4F53;&#x9A8C;&#x662F;&#xFF1A;&#x4F60;&#x53D6;&#x8D70;&#x4E00;&#x8F86;&#x8D2D;&#x7269;&#x8F66;&#xFF0C;&#x5237;&#x4E86;&#x4F1A;&#x5458;&#x5361;&#xFF0C;&#x5C4F;&#x5E55;&#x4E0A;&#x4F1A;&#x663E;&#x793A;&#x4E00;&#x4EFD;&#x8D2D;&#x7269;&#x5217;&#x8868;&#xFF0C;&#x91CC;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x90FD;&#x662F;&#x57FA;&#x4E8E;&#x4F60;&#x5E73;&#x65F6;&#x7684;&#x8D2D;&#x7269;&#x4E60;&#x60EF;&#x8FDB;&#x884C;&#x63A8;&#x8350;&#x7684;&#xFF0C;&#x725B;&#x5976;&#x3001;&#x9E21;&#x86CB;&#x3001;&#x897F;&#x846B;&#x82A6;&#x7B49;&#x7B49;&#x3002;&#x667A;&#x80FD;&#x7CFB;&#x7EDF;&#x4F1A;&#x63D0;&#x793A;&#x51FA;&#x8D2D;&#x4E70;&#x8FD9;&#x4E9B;&#x7269;&#x54C1;&#x7684;&#x6700;&#x4F73;&#x8DEF;&#x5F84;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x5B83;&#x8FD8;&#x5141;&#x8BB8;&#x4F60;&#x4FEE;&#x6539;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x5546;&#x54C1;&#xFF0C;&#x6BD4;&#x5982;&#x4F60;&#x53EF;&#x4EE5;&#x8BA9;&#x5B83;&#x4E0D;&#x8981;&#x518D;&#x63D0;&#x793A;&#x83DC;&#x82B1;&#x548C;&#x76D0;&#x7117;&#x82B1;&#x751F;&#x3002;Accenture&#x7684;&#x7814;&#x7A76;&#x8868;&#x660E;&#xFF0C;&#x4EBA;&#x4EEC;&#x5728;&#x8D2D;&#x7269;&#x65F6;&#x4F1A;&#x5FD8;&#x8BB0;11%&#x7684;&#x539F;&#x672C;&#x6253;&#x7B97;&#x8D2D;&#x4E70;&#x7684;&#x5546;&#x54C1;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E86;&#x8FD9;&#x6837;&#x7684;&#x667A;&#x80FD;&#x8D2D;&#x7269;&#x8F66;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7701;&#x53BB;&#x5BA2;&#x6237;&#x7684;&#x6765;&#x56DE;&#x8DEF;&#x7A0B;&#xFF0C;&#x4E5F;&#x80FD;&#x4E3A;&#x8D85;&#x5E02;&#x589E;&#x52A0;&#x9500;&#x91CF;&#x3002;</p>
+</blockquote>
+<h2 id="i100&#x3001;i500&#x5065;&#x5EB7;&#x624B;&#x73AF;">i100&#x3001;i500&#x5065;&#x5EB7;&#x624B;&#x73AF;</h2>
+<p>&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x8981;&#x4E3A;iHealth&#x516C;&#x53F8;&#x9500;&#x552E;&#x5065;&#x5EB7;&#x624B;&#x73AF;&#x4EA7;&#x54C1;&#xFF0C;&#x4ECE;&#x800C;&#x548C;Nike Fuel&#x3001;Fitbit Flex&#x7ADE;&#x4E89;&#x3002;iHealth&#x65B0;&#x51FA;&#x4EA7;&#x4E86;&#x4E24;&#x4EF6;&#x5546;&#x54C1;&#xFF1A;i100&#x548C;i500&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-32.png" alt=""></p>
+<p><strong>iHealth 100</strong></p>
+<p>&#x80FD;&#x591F;&#x76D1;&#x6D4B;&#x5FC3;&#x7387;&#xFF0C;&#x4F7F;&#x7528;GPS&#x5BFC;&#x822A;&#xFF08;&#x4ECE;&#x800C;&#x8BA1;&#x7B97;&#x6BCF;&#x5C0F;&#x65F6;&#x8FD0;&#x52A8;&#x516C;&#x91CC;&#x6570;&#x7B49;&#xFF09;&#xFF0C;&#x5E26;WiFi&#x65E0;&#x7EBF;&#xFF0C;&#x53EF;&#x968F;&#x65F6;&#x4E0A;&#x4F20;&#x6570;&#x636E;&#x5230;iHealth&#x7F51;&#x7AD9;&#x4E0A;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-33.png" alt=""></p>
+<p><strong>iHealth 500</strong></p>
+<p>&#x9664;&#x4E86;&#x63D0;&#x4F9B;i100&#x7684;&#x529F;&#x80FD;&#x5916;&#xFF0C;&#x8FD8;&#x80FD;&#x76D1;&#x6D4B;&#x8840;&#x6DB2;&#x542B;&#x6C27;&#x91CF;&#x7B49;&#x6307;&#x6807;&#xFF0C;&#x4E14;&#x63D0;&#x4F9B;&#x514D;&#x8D39;&#x7684;3G&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x5230;iHealth&#x7F51;&#x7AD9;&#x3002;</p>
+<p>&#x8FD9;&#x4E9B;&#x4EA7;&#x54C1;&#x901A;&#x8FC7;&#x7F51;&#x7EDC;&#x5E73;&#x53F0;&#x9500;&#x552E;&#xFF0C;&#x6240;&#x4EE5;iHealth&#x96C7;&#x4F63;&#x6211;&#x4EEC;&#x5F00;&#x53D1;&#x4E00;&#x5957;&#x63A8;&#x8350;&#x7CFB;&#x7EDF;&#x3002;&#x6211;&#x901A;&#x8FC7;&#x8BA9;&#x8D2D;&#x4E70;&#x7684;&#x7528;&#x6237;&#x586B;&#x5199;&#x8C03;&#x67E5;&#x95EE;&#x5377;&#x6765;&#x6536;&#x96C6;&#x6570;&#x636E;&#xFF0C;&#x6BCF;&#x4E2A;&#x95EE;&#x9898;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x7279;&#x5F81;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x95EE;&#x5BA2;&#x6237;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5F00;&#x59CB;&#x8FD0;&#x52A8;&#xFF0C;&#x6709;&#x4E09;&#x4E2A;&#x9009;&#x9879;&#xFF1A;&#x5065;&#x5EB7;&#xFF08;health&#xFF09;&#x3001;&#x5916;&#x8868;&#xFF08;appearance&#xFF09;&#x3001;&#x4E24;&#x8005;&#x7686;&#x662F;&#xFF08;both&#xFF09;&#xFF1B;&#x6211;&#x4EEC;&#x4F1A;&#x95EE;&#x4ED6;&#x76EE;&#x524D;&#x7684;&#x8FD0;&#x52A8;&#x6C34;&#x5E73;&#xFF1A;&#x5F88;&#x5C11;&#x8FD0;&#x52A8;&#xFF08;sedentary&#xFF09;&#x3001;&#x4E00;&#x822C;&#xFF08;moderate&#xFF09;&#x3001;&#x7ECF;&#x5E38;&#x8FD0;&#x52A8;&#xFF08;active&#xFF09;&#xFF1B;&#x6211;&#x4EEC;&#x4F1A;&#x95EE;&#x4ED6;&#x5BF9;&#x5065;&#x8EAB;&#x7684;&#x70ED;&#x60C5;&#x662F;&#x9AD8;&#xFF08;aggressive&#xFF09;&#x8FD8;&#x662F;&#x4E00;&#x822C;&#xFF08;moderate&#xFF09;&#xFF1B;&#x6700;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x95EE;&#x4ED6;&#x662F;&#x5426;&#x9002;&#x5E94;&#x4F7F;&#x7528;&#x9AD8;&#x79D1;&#x6280;&#x4EA7;&#x54C1;&#x3002;&#x6574;&#x7406;&#x540E;&#x7684;&#x6570;&#x636E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-34.png" alt=""></p>
+<p><strong>&#x5B9E;&#x8DF5;</strong></p>
+<p>&#x5DF2;&#x77E5;&#x4E00;&#x4F4D;&#x5BA2;&#x6237;&#x7684;&#x8FD0;&#x52A8;&#x76EE;&#x7684;&#x662F;&#x5065;&#x5EB7;&#x3001;&#x5F53;&#x524D;&#x6C34;&#x5E73;&#x662F;&#x4E2D;&#x7B49;&#x3001;&#x70ED;&#x60C5;&#x4E00;&#x822C;&#x3001;&#x80FD;&#x9002;&#x5E94;&#x9AD8;&#x79D1;&#x6280;&#x4EA7;&#x54C1;&#xFF0C;&#x8BF7;&#x7528;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x6765;&#x63A8;&#x8350;&#x624B;&#x73AF;&#x578B;&#x53F7;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x6982;&#x7387;&#xFF0C;&#x5E76;&#x9009;&#x53D6;&#x8F83;&#x5927;&#x7684;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>P(i100|&#x5065;&#x5EB7;&#xFF0C;&#x4E2D;&#x7B49;&#x6C34;&#x5E73;&#x3001;&#x70ED;&#x60C5;&#x4E00;&#x822C;&#xFF0C;&#x9002;&#x5E94;&#xFF09;
+P(i500|&#x5065;&#x5EB7;&#xFF0C;&#x4E2D;&#x7B49;&#x6C34;&#x5E73;&#xFF0C;&#x70ED;&#x60C5;&#x4E00;&#x822C;&#xFF0C;&#x9002;&#x5E94;&#xFF09;
+</code></pre><p>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x7B2C;&#x4E00;&#x4E2A;&#x6982;&#x7387;&#xFF1A;</p>
+<pre><code>P(i100|&#x5065;&#x5EB7;&#xFF0C;&#x4E2D;&#x7B49;&#x6C34;&#x5E73;&#x3001;&#x70ED;&#x60C5;&#x4E00;&#x822C;&#xFF0C;&#x9002;&#x5E94;&#xFF09; = P(&#x5065;&#x5EB7;|i100)P(&#x4E2D;&#x7B49;&#x6C34;&#x5E73;|i100)P(&#x70ED;&#x60C5;&#x4E00;&#x822C;|i100)P(&#x9002;&#x5E94;|i100)
+</code></pre><p>&#x5176;&#x4E2D;&#xFF1A;</p>
+<pre><code>P(&#x5065;&#x5EB7;|i100) = 1/6
+P(&#x4E2D;&#x7B49;&#x6C34;&#x5E73;|i100) = 1/6
+P(&#x70ED;&#x60C5;&#x4E00;&#x822C;|i100) = 5/6
+P(&#x9002;&#x5E94;|i100) = 2/6
+P(i100) = 6/15
+</code></pre><p>&#x56E0;&#x6B64;&#xFF1A;</p>
+<pre><code>P(i100|&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;) = 0.167 * 0.167 * 0.833 * 0.333 * 0.4 = 0.00309
+</code></pre><p>&#x518D;&#x8BA1;&#x7B97;&#x53E6;&#x4E00;&#x4E2A;&#x6A21;&#x578B;&#x7684;&#x6982;&#x7387;&#xFF1A;</p>
+<pre><code>P(i500|&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;) = P(&#x5065;&#x5EB7;|i500)P(&#x4E2D;&#x7B49;&#x6C34;&#x5E73;|i500)P(&#x70ED;&#x60C5;&#x4E00;&#x822C;|i500)P(&#x9002;&#x5E94;|i500)
+    = 4/9 * 3/9 * 3/9 * 6/9 * 9/15
+    = 0.444 * 0.333 * 0.333 * 0.667 * 0.6
+    = 0.01975
+</code></pre><h2 id="&#x4F7F;&#x7528;python&#x7F16;&#x5199;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x5206;&#x7C7B;&#x5668;">&#x4F7F;&#x7528;Python&#x7F16;&#x5199;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x5206;&#x7C7B;&#x5668;</h2>
+<p>&#x4E0A;&#x4F8B;&#x7684;&#x6570;&#x636E;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>both    sedentary    moderate    yes    i100
+both    sedentary    moderate    no    i100
+health    sedentary    moderate    yes    i500
+appearance    active    moderate    yes    i500
+appearance    moderate    aggressive    yes    i500
+appearance    moderate    aggressive    no    i100
+health    moderate    aggressive    no    i500
+both    active    moderate    yes    i100
+both    moderate    aggressive    yes    i500
+appearance    active    aggressive    yes    i500
+both    active    aggressive    no    i500
+health    active    moderate    no    i500
+health    sedentary    aggressive    yes    i500
+appearance    active    moderate    no    i100
+health    sedentary    moderate    no    i100
+</code></pre><p>&#x867D;&#x7136;&#x8FD9;&#x4E2A;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#x53EA;&#x6709;15&#x6761;&#x6570;&#x636E;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x8FD8;&#x662F;&#x4FDD;&#x7559;&#x5341;&#x6298;&#x4EA4;&#x53C9;&#x9A8C;&#x8BC1;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x4EE5;&#x4FBF;&#x7528;&#x4E8E;&#x66F4;&#x5927;&#x7684;&#x6570;&#x636E;&#x96C6;&#x3002;&#x5341;&#x6298;&#x4EA4;&#x53C9;&#x9A8C;&#x8BC1;&#x8981;&#x6C42;&#x6570;&#x636E;&#x96C6;&#x7B49;&#x5206;&#x6210;10&#x4EFD;&#xFF0C;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#x6211;&#x4EEC;&#x7B80;&#x5355;&#x5730;&#x5C06;15&#x6761;&#x6570;&#x636E;&#x5168;&#x90E8;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x6876;&#x91CC;&#xFF0C;&#x5176;&#x5B83;&#x6876;&#x7559;&#x7A7A;&#x3002;</p>
+<p>&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x5206;&#x7C7B;&#x5668;&#x5305;&#x542B;&#x4E24;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;&#x8BAD;&#x7EC3;&#x548C;&#x5206;&#x7C7B;&#x3002;</p>
+<h3 id="&#x8BAD;&#x7EC3;">&#x8BAD;&#x7EC3;</h3>
+<p>&#x8BAD;&#x7EC3;&#x7684;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x5E94;&#x8BE5;&#x662F;&#xFF1A;</p>
+<ul>
+<li>&#x5148;&#x9A8C;&#x6982;&#x7387;&#xFF0C;&#x5982;P(i100) = 0.4&#xFF1B;</li>
+<li>&#x6761;&#x4EF6;&#x6982;&#x7387;&#xFF0C;&#x5982;P(&#x5065;&#x5EB7;|i100) = 0.167</li>
+</ul>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#x8868;&#x793A;&#x5148;&#x9A8C;&#x6982;&#x7387;&#xFF1A;</p>
+<pre><code class="lang-python">self.prior = {<span class="hljs-string">&apos;i500&apos;</span>: <span class="hljs-number">0.6</span>, <span class="hljs-string">&apos;i100&apos;</span>: <span class="hljs-number">0.4</span>}
+</code></pre>
+<p>&#x6761;&#x4EF6;&#x6982;&#x7387;&#x7684;&#x8868;&#x793A;&#x6709;&#x4E9B;&#x590D;&#x6742;&#xFF0C;&#x7528;&#x5D4C;&#x5957;&#x7684;&#x5B57;&#x5178;&#x6765;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<pre><code class="lang-python">{<span class="hljs-string">&apos;i500&apos;</span>: {<span class="hljs-number">1</span>: {<span class="hljs-string">&apos;appearance&apos;</span>: <span class="hljs-number">0.3333333333333333</span>, <span class="hljs-string">&apos;health&apos;</span>: <span class="hljs-number">0.4444444444444444</span>,
+              <span class="hljs-string">&apos;both&apos;</span>: <span class="hljs-number">0.2222222222222222</span>},
+          <span class="hljs-number">2</span>: {<span class="hljs-string">&apos;active&apos;</span>: <span class="hljs-number">0.4444444444444444</span>, <span class="hljs-string">&apos;sedentary&apos;</span>: <span class="hljs-number">0.2222222222222222</span>,
+              <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">0.3333333333333333</span>},
+          <span class="hljs-number">3</span>: {<span class="hljs-string">&apos;aggressive&apos;</span>: <span class="hljs-number">0.6666666666666666</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">0.3333333333333333</span>},
+          <span class="hljs-number">4</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">0.6666666666666666</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">0.3333333333333333</span>}},
+ <span class="hljs-string">&apos;i100&apos;</span>: {<span class="hljs-number">1</span>: {<span class="hljs-string">&apos;both&apos;</span>: <span class="hljs-number">0.5</span>, <span class="hljs-string">&apos;health&apos;</span>: <span class="hljs-number">0.16666666666666666</span>, 
+              <span class="hljs-string">&apos;appearance&apos;</span>: <span class="hljs-number">0.3333333333333333</span>},
+          <span class="hljs-number">2</span>: {<span class="hljs-string">&apos;active&apos;</span>: <span class="hljs-number">0.3333333333333333</span>, <span class="hljs-string">&apos;sedentary&apos;</span>: <span class="hljs-number">0.5</span>,
+              <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">0.16666666666666666</span>},
+          <span class="hljs-number">3</span>: {<span class="hljs-string">&apos;aggressive&apos;</span>: <span class="hljs-number">0.16666666666666666</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">0.8333333333333334</span>},
+          <span class="hljs-number">4</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">0.3333333333333333</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">0.6666666666666666</span>}}}
+</code></pre>
+<p>1&#x3001;2&#x3001;3&#x3001;4&#x8868;&#x793A;&#x7B2C;&#x51E0;&#x5217;&#xFF0C;&#x6240;&#x4EE5;&#x7B2C;&#x4E00;&#x884C;&#x53EF;&#x4EE5;&#x89E3;&#x91CA;&#x4E3A;&#x8D2D;&#x4E70;i500&#x7684;&#x987E;&#x5BA2;&#x4E2D;&#x8FD0;&#x52A8;&#x76EE;&#x7684;&#x662F;&#x5916;&#x8868;&#x7684;&#x6982;&#x7387;&#x662F;0.333&#x3002;</p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x8981;&#x6765;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#xFF0C;&#x6BD4;&#x5982;&#x4EE5;&#x4E0B;&#x51E0;&#x884C;&#x6570;&#x636E;&#xFF1A;</p>
+<pre><code>both    sedentary    moderate    yes    i100
+both    sedentary    moderate    no    i100
+health    sedentary    moderate    yes    i500
+appearance    active    moderate    yes    i500
+</code></pre><p>&#x6211;&#x4EEC;&#x7528;&#x5B57;&#x5178;&#x6765;&#x7EDF;&#x8BA1;&#x6BCF;&#x4E2A;&#x6A21;&#x578B;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x53D8;&#x91CF;&#x540D;&#x4E3A;classes&#xFF0C;&#x9010;&#x884C;&#x626B;&#x63CF;&#x540E;&#x7684;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-comment"># &#x7B2C;&#x4E00;&#x884C;</span>
+{<span class="hljs-string">&apos;i100&apos;</span>: <span class="hljs-number">1</span>}
+
+<span class="hljs-comment"># &#x7B2C;&#x4E8C;&#x884C;</span>
+{<span class="hljs-string">&apos;i100&apos;</span>: <span class="hljs-number">2</span>}
+
+<span class="hljs-comment"># &#x7B2C;&#x4E09;&#x884C;</span>
+{<span class="hljs-string">&apos;i500&apos;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&apos;i100&apos;</span>: <span class="hljs-number">2</span>}
+
+<span class="hljs-comment"># &#x5168;&#x90E8;</span>
+{<span class="hljs-string">&apos;i500&apos;</span>: <span class="hljs-number">9</span>, <span class="hljs-string">&apos;i100&apos;</span>: <span class="hljs-number">6</span>}
+</code></pre>
+<p>&#x8981;&#x83B7;&#x53D6;&#x6A21;&#x578B;&#x7684;&#x5148;&#x9A8C;&#x6982;&#x7387;&#xFF0C;&#x53EA;&#x8981;&#x5C06;&#x8BA1;&#x6570;&#x7ED3;&#x679C;&#x9664;&#x4EE5;&#x603B;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<p>&#x8BA1;&#x7B97;&#x540E;&#x9A8C;&#x6982;&#x7387;&#x4E5F;&#x9700;&#x8981;&#x8BA1;&#x6570;&#xFF0C;&#x53D8;&#x91CF;&#x540D;&#x4E3A;counts&#x3002;&#x8FD9;&#x4E2A;&#x5B57;&#x5178;&#x8F83;&#x4E3A;&#x590D;&#x6742;&#xFF0C;&#x5982;&#x626B;&#x5B8C;&#x7B2C;&#x4E00;&#x884C;&#x7B2C;&#x4E00;&#x5217;&#x7684;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-python">{<span class="hljs-string">&apos;i100&apos;</span>: {<span class="hljs-number">1</span>: {<span class="hljs-string">&apos;both&apos;</span>: <span class="hljs-number">1</span>}}
+</code></pre>
+<p>&#x5904;&#x7406;&#x5B8C;&#x6240;&#x6709;&#x6570;&#x636E;&#x540E;&#x7684;&#x8BA1;&#x6570;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-python">{<span class="hljs-string">&apos;i500&apos;</span>: {<span class="hljs-number">1</span>: {<span class="hljs-string">&apos;appearance&apos;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&apos;health&apos;</span>: <span class="hljs-number">4</span>, <span class="hljs-string">&apos;both&apos;</span>: <span class="hljs-number">2</span>},
+          <span class="hljs-number">2</span>: {<span class="hljs-string">&apos;active&apos;</span>: <span class="hljs-number">4</span>, <span class="hljs-string">&apos;sedentary&apos;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">3</span>},
+          <span class="hljs-number">3</span>: {<span class="hljs-string">&apos;aggressive&apos;</span>: <span class="hljs-number">6</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">3</span>},
+          <span class="hljs-number">4</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">6</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">3</span>}},
+ <span class="hljs-string">&apos;i100&apos;</span>: {<span class="hljs-number">1</span>: {<span class="hljs-string">&apos;both&apos;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&apos;health&apos;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&apos;appearance&apos;</span>: <span class="hljs-number">2</span>}, 
+          <span class="hljs-number">2</span>: {<span class="hljs-string">&apos;active&apos;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&apos;sedentary&apos;</span>: <span class="hljs-number">3</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">1</span>},
+          <span class="hljs-number">3</span>: {<span class="hljs-string">&apos;aggressive&apos;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">5</span>},
+          <span class="hljs-number">4</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">4</span>}}}
+</code></pre>
+<p>&#x8BA1;&#x7B97;&#x6982;&#x7387;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x5C06;&#x8BA1;&#x6570;&#x9664;&#x4EE5;&#x8BE5;&#x6A21;&#x578B;&#x7684;&#x603B;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF1A;</p>
+<p>P(&#x5916;&#x8868;|i100) = 2 / 6 = 0.333</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x8BAD;&#x7EC3;&#x7528;&#x7684;Python&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Classifier</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, bucketPrefix, testBucketNumber, dataFormat)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;bucketPrefix &#x5206;&#x6876;&#x6570;&#x636E;&#x96C6;&#x6587;&#x4EF6;&#x524D;&#x7F00;
+        testBucketNumber &#x6D4B;&#x8BD5;&#x6876;&#x7F16;&#x53F7;
+        dataFormat &#x6570;&#x636E;&#x683C;&#x5F0F;&#xFF0C;&#x5F62;&#x5982;&#xFF1A;attr attr attr attr class
+        &quot;&quot;&quot;</span>
+
+        total = <span class="hljs-number">0</span>
+        classes = {}
+        counts = {}
+
+        <span class="hljs-comment"># &#x4ECE;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x6570;&#x636E;</span>
+        self.format = dataFormat.strip().split(<span class="hljs-string">&apos;\t&apos;</span>)
+        self.prior = {}
+        self.conditional = {}
+        <span class="hljs-comment"># &#x904D;&#x5386;&#x5341;&#x4E2A;&#x6876;</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>):
+            <span class="hljs-comment"># &#x8DF3;&#x8FC7;&#x6D4B;&#x8BD5;&#x6876;</span>
+            <span class="hljs-keyword">if</span> i != testBucketNumber:
+                filename = <span class="hljs-string">&quot;%s-%02i&quot;</span> % (bucketPrefix, i)
+                f = open(filename)
+                lines = f.readlines()
+                f.close()
+                <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines:
+                    fields = line.strip().split(<span class="hljs-string">&apos;\t&apos;</span>)
+                    ignore = []
+                    vector = []
+                    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(fields)):
+                        <span class="hljs-keyword">if</span> self.format[i] == <span class="hljs-string">&apos;num&apos;</span>:
+                            vector.append(float(fields[i]))
+                        <span class="hljs-keyword">elif</span> self.format[i] == <span class="hljs-string">&apos;attr&apos;</span>:
+                            vector.append(fields[i])                           
+                        <span class="hljs-keyword">elif</span> self.format[i] == <span class="hljs-string">&apos;comment&apos;</span>:
+                            ignore.append(fields[i])
+                        <span class="hljs-keyword">elif</span> self.format[i] == <span class="hljs-string">&apos;class&apos;</span>:
+                            category = fields[i]
+                    <span class="hljs-comment"># &#x5904;&#x7406;&#x8BE5;&#x6761;&#x8BB0;&#x5F55;</span>
+                    total += <span class="hljs-number">1</span>
+                    classes.setdefault(category, <span class="hljs-number">0</span>)
+                    counts.setdefault(category, {})
+                    classes[category] += <span class="hljs-number">1</span>
+                    <span class="hljs-comment"># &#x5904;&#x7406;&#x5404;&#x4E2A;&#x5C5E;&#x6027;</span>
+                    col = <span class="hljs-number">0</span>
+                    <span class="hljs-keyword">for</span> columnValue <span class="hljs-keyword">in</span> vector:
+                        col += <span class="hljs-number">1</span>
+                        counts[category].setdefault(col, {})
+                        counts[category][col].setdefault(columnValue, <span class="hljs-number">0</span>)
+                        counts[category][col][columnValue] += <span class="hljs-number">1</span>
+
+        <span class="hljs-comment"># &#x8BA1;&#x6570;&#x7ED3;&#x675F;&#xFF0C;&#x5F00;&#x59CB;&#x8BA1;&#x7B97;&#x6982;&#x7387;</span>
+
+        <span class="hljs-comment"># &#x8BA1;&#x7B97;&#x5148;&#x9A8C;&#x6982;&#x7387;P(h)</span>
+        <span class="hljs-keyword">for</span> (category, count) <span class="hljs-keyword">in</span> classes.items():
+            self.prior[category] = count / total
+
+        <span class="hljs-comment"># &#x8BA1;&#x7B97;&#x6761;&#x4EF6;&#x6982;&#x7387;P(h|D)</span>
+        <span class="hljs-keyword">for</span> (category, columns) <span class="hljs-keyword">in</span> counts.items():
+              self.conditional.setdefault(category, {})
+              <span class="hljs-keyword">for</span> (col, valueCounts) <span class="hljs-keyword">in</span> columns.items():
+                  self.conditional[category].setdefault(col, {})
+                  <span class="hljs-keyword">for</span> (attrValue, count) <span class="hljs-keyword">in</span> valueCounts.items():
+                      self.conditional[category][col][attrValue] = (
+                          count / classes[category])
+        self.tmp =  counts
+</code></pre>
+<h3 id="&#x5206;&#x7C7B;">&#x5206;&#x7C7B;</h3>
+<p>&#x5206;&#x7C7B;&#x51FD;&#x6570;&#x4F1A;&#x8FD9;&#x6837;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-python">c.classify([<span class="hljs-string">&apos;health&apos;</span>, <span class="hljs-string">&apos;moderate&apos;</span>, <span class="hljs-string">&apos;moderate&apos;</span>, <span class="hljs-string">&apos;yes&apos;</span>])
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BA1;&#x7B97;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-26.png" alt=""></p>
+<pre><code class="lang-python">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classify</span><span class="hljs-params">(self, itemVector)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;&#x8FD4;&#x56DE;itemVector&#x6240;&#x5C5E;&#x7C7B;&#x522B;&quot;&quot;&quot;</span>
+        results = []
+        <span class="hljs-keyword">for</span> (category, prior) <span class="hljs-keyword">in</span> self.prior.items():
+            prob = prior
+            col = <span class="hljs-number">1</span>
+            <span class="hljs-keyword">for</span> attrValue <span class="hljs-keyword">in</span> itemVector:
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> attrValue <span class="hljs-keyword">in</span> self.conditional[category][col]:
+                    <span class="hljs-comment"># &#x5C5E;&#x6027;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FD4;&#x56DE;0&#x6982;&#x7387;</span>
+                    prob = <span class="hljs-number">0</span>
+                <span class="hljs-keyword">else</span>:
+                    prob = prob * self.conditional[category][col][attrValue]
+                col += <span class="hljs-number">1</span>
+            results.append((prob, category))
+        <span class="hljs-comment"># &#x8FD4;&#x56DE;&#x6982;&#x7387;&#x6700;&#x9AD8;&#x7684;&#x7ED3;&#x679C;</span>
+        <span class="hljs-keyword">return</span>(max(results)[<span class="hljs-number">1</span>])
+</code></pre>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span>c = Classifier(<span class="hljs-string">&apos;iHealth/i&apos;</span>, <span class="hljs-number">10</span>, <span class="hljs-string">&apos;attr\tattr\tattr\tattr\tclass&apos;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>c.classify([<span class="hljs-string">&apos;health&apos;</span> <span class="hljs-string">&apos;moderate&apos;</span>, <span class="hljs-string">&apos;moderate&apos;</span>, <span class="hljs-string">&apos;yes&apos;</span>])
+i500
+</code></pre>
+<p><img src="img/chapter-6/chapter-6-35.png" alt=""></p>
+<h2 id="&#x5171;&#x548C;&#x515A;&#x8FD8;&#x662F;&#x6C11;&#x4E3B;&#x515A;">&#x5171;&#x548C;&#x515A;&#x8FD8;&#x662F;&#x6C11;&#x4E3B;&#x515A;</h2>
+<p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x53E6;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x96C6;&#x2014;&#x2014;&#x7F8E;&#x56FD;&#x56FD;&#x4F1A;&#x6295;&#x7968;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x4ECE; <a href="http://archive.ics.uci.edu/ml/index.html" target="_blank">&#x673A;&#x5668;&#x5B66;&#x4E60;&#x4ED3;&#x5E93;</a> &#x83B7;&#x5F97;&#x3002;&#x6BCF;&#x6761;&#x8BB0;&#x5F55;&#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x9009;&#x6C11;&#xFF0C;&#x7B2C;&#x4E00;&#x5217;&#x662F;&#x5206;&#x7C7B;&#x540D;&#x79F0;&#xFF08;democrat, republican&#xFF09;&#xFF0C;&#x4E4B;&#x540E;&#x662F;16&#x6761;&#x6CD5;&#x6848;&#xFF0C;&#x7528;y&#x548C;n&#x8868;&#x793A;&#x8BE5;&#x4EBA;&#x662F;&#x5426;&#x652F;&#x6301;&#x3002;</p>
+<ol>
+<li>&#x6B8B;&#x75BE;&#x5A74;&#x513F;&#x6CD5;&#x6848;</li>
+<li>&#x7528;&#x6C34;&#x6210;&#x672C;&#x5206;&#x644A;</li>
+<li>&#x9884;&#x7B97;&#x6539;&#x9769;</li>
+<li>&#x533B;&#x7597;&#x8D39;&#x7528;</li>
+<li>&#x8428;&#x74E6;&#x5C14;&#x591A;&#x63F4;&#x52A9;</li>
+<li>&#x6821;&#x56ED;&#x5B97;&#x6559;&#x7EC4;&#x7EC7;</li>
+<li>&#x53CD;&#x536B;&#x661F;&#x6B66;&#x5668;</li>
+<li>&#x5C3C;&#x52A0;&#x62C9;&#x74DC;&#x63F4;&#x52A9;</li>
+<li>MX&#x5BFC;&#x5F39;</li>
+<li>&#x79FB;&#x6C11;&#x6CD5;&#x6848;</li>
+<li>&#x5408;&#x6210;&#x71C3;&#x6599;&#x7F29;&#x51CF;</li>
+<li>&#x6559;&#x80B2;&#x652F;&#x51FA;&#x6CD5;&#x6848;</li>
+<li>&#x6709;&#x6BD2;&#x5E9F;&#x7269;&#x57FA;&#x91D1;</li>
+<li>&#x72AF;&#x7F6A;</li>
+<li>&#x51FA;&#x53E3;&#x514D;&#x7A0E;</li>
+<li>&#x5357;&#x975E;&#x51FA;&#x53E3;&#x7BA1;&#x63A7;</li>
+</ol>
+<p>&#x6587;&#x4EF6;&#x683C;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>democrat    y    n    y    n    n    y    y    y    y    y    n    n    y    n    n    y
+democrat    y    y    y    n    n    y    y    y    y    n    n    n    n    n    y    y
+republican    y    y    n    y    y    y    n    n    n    y    n    y    y    y    n    n
+</code></pre><p>&#x5728;&#x8C03;&#x7528;&#x4E0A;&#x4E00;&#x8282;&#x7F16;&#x5199;&#x7684;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x5206;&#x7C7B;&#x5668;&#x65F6;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;dataFormat&#x53C2;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-string">&quot;class\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr\tattr&quot;</span>
+</code></pre>
+<p>&#x5341;&#x6298;&#x4EA4;&#x53C9;&#x9A8C;&#x8BC1;&#x7684;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-36.png" alt=""></p>
+<p>&#x770B;&#x8D77;&#x6765;&#x4E0D;&#x9519;&#x3002;</p>
+<p><strong>&#x4F46;&#x662F;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6709;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#x3002;</strong></p>
+<p><img src="img/chapter-6/chapter-6-37.png" alt=""></p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x6765;&#x6A21;&#x62DF;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x96C6;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;100&#x4E2A;&#x6C11;&#x4E3B;&#x515A;&#x6D3E;&#x548C;100&#x4E2A;&#x5171;&#x548C;&#x515A;&#x6D3E;&#x3002;&#x4E0B;&#x8868;&#x662F;&#x4ED6;&#x4EEC;&#x5BF9;&#x56DB;&#x4E2A;&#x6CD5;&#x6848;&#x7684;&#x6295;&#x7968;&#x60C5;&#x51B5;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-38.png" alt=""></p>
+<p>&#x4ECE;&#x8868;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5171;&#x548C;&#x515A;&#x4EBA;&#x4E2D;&#xFF0C;99%&#x8D5E;&#x6210;&#x7F51;&#x7EDC;&#x5B89;&#x5168;&#x6CD5;&#x6848;&#xFF0C;&#x53EA;&#x6709;1%&#x7684;&#x4EBA;&#x8D5E;&#x6210;&#x8BFB;&#x8005;&#x9690;&#x79C1;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x518D;&#x9009;&#x53D6;&#x4E00;&#x4F4D;&#x8BAE;&#x4F1A;&#x4EE3;&#x8868;&#x2014;&#x2014;X&#x5148;&#x751F;&#xFF0C;&#x5BF9;&#x4ED6;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-39.png" alt=""></p>
+<p><em>&#x4F60;&#x89C9;&#x5F97;X&#x5148;&#x751F;&#x662F;&#x6C11;&#x4E3B;&#x515A;&#x8FD8;&#x662F;&#x5171;&#x548C;&#x515A;&#x5462;&#xFF1F;</em></p>
+<p><img src="img/chapter-6/chapter-6-40.png" alt=""></p>
+<p>&#x6211;&#x4F1A;&#x731C;&#x6D4B;&#x6C11;&#x4E3B;&#x515A;&#x3002;&#x6211;&#x4EEC;&#x7528;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x6765;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x5148;&#x9A8C;&#x6982;&#x7387;P(&#x6C11;&#x4E3B;&#x515A;)&#x548C;P(&#x5171;&#x548C;&#x515A;)&#x90FD;&#x662F;0.5&#xFF0C;&#x56E0;&#x4E3A;&#x6837;&#x672C;&#x4E2D;&#x4E24;&#x515A;&#x5206;&#x522B;&#x6709;100&#x4EBA;&#x3002;X&#x5148;&#x751F;&#x5BF9;&#x7F51;&#x7EDC;&#x5B89;&#x5168;&#x6CD5;&#x6848;&#x6295;&#x4E86;&#x5426;&#x51B3;&#x7968;&#xFF0C;&#x5E76;&#x4E14;&#xFF1A;</p>
+<pre><code>P(&#x5171;&#x548C;&#x515A;|C=no) = 0.01
+P(&#x6C11;&#x4E3B;&#x515A;|C=no) = 0.99
+</code></pre><p>&#x4E3A;&#x4E86;&#x8868;&#x793A;&#x65B9;&#x4FBF;&#xFF0C;&#x6211;&#x4EEC;&#x7528;&#x5B57;&#x6BCD;&#x6765;&#x8868;&#x793A;&#x8FD9;&#x56DB;&#x4E2A;&#x6CD5;&#x6848;&#xFF1A;</p>
+<ol>
+<li>&#x7F51;&#x7EDC;&#x5B89;&#x5168;&#xFF1A;C</li>
+<li>&#x8BFB;&#x8005;&#x9690;&#x79C1;&#xFF1A;R</li>
+<li>&#x7F51;&#x9500;&#x7A0E;&#x8D1F;&#xFF1A;T</li>
+<li>&#x975E;&#x6CD5;&#x4F20;&#x64AD;&#xFF1A;S</li>
+</ol>
+<p>&#x8BB0;&#x5230;&#x8868;&#x683C;&#x91CC;&#x5C31;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-41.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x5C06;X&#x5148;&#x751F;&#x5BF9;&#x8BFB;&#x8005;&#x9690;&#x79C1;&#x548C;&#x7F51;&#x7EDC;&#x8425;&#x9500;&#x7A0E;&#x8D1F;&#x6CD5;&#x6848;&#x7684;&#x6295;&#x7968;&#x8BB0;&#x5230;&#x8868;&#x683C;&#x4E2D;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-42.png" alt=""></p>
+<p>&#x5BF9;&#x8FD9;&#x4E9B;&#x6982;&#x7387;&#x8FDB;&#x884C;&#x6807;&#x51C6;&#x5316;&#x540E;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-43.png" alt=""></p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#x6211;&#x4EEC;&#x6709;99.99%&#x7684;&#x4FE1;&#x5FC3;&#x8BA4;&#x4E3A;X&#x5148;&#x751F;&#x662F;&#x6C11;&#x4E3B;&#x515A;&#x7684;&#x3002;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;X&#x5148;&#x751F;&#x5BF9;&#x975E;&#x6CD5;&#x4F20;&#x64AD;&#x6CD5;&#x6848;&#x7684;&#x6295;&#x7968;&#x8BB0;&#x5165;&#x8868;&#x683C;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-44.png" alt=""></p>
+<p>&#x4F60;&#x4F1A;&#x60CA;&#x8BB6;&#x5730;&#x53D1;&#x73B0;&#xFF0C;X&#x5148;&#x751F;&#x662F;&#x6C11;&#x4E3B;&#x515A;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x4ECE;99%&#x964D;&#x81F3;0&#x4E86;&#xFF01;&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x6C11;&#x4E3B;&#x515A;&#x4EBA;&#x5BF9;&#x7F51;&#x7EDC;&#x975E;&#x6CD5;&#x4F20;&#x64AD;&#x6CD5;&#x6848;&#x6295;&#x4E86;&#x5426;&#x51B3;&#x7968;&#x3002;</p>
+<h3 id="&#x6982;&#x7387;&#x4F30;&#x8BA1;">&#x6982;&#x7387;&#x4F30;&#x8BA1;</h3>
+<p>&#x4F7F;&#x7528;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x7684;&#x6982;&#x7387;&#x5176;&#x5B9E;&#x662F;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x7684;&#x4E00;&#x79CD;<strong>&#x4F30;&#x8BA1;</strong>&#xFF0C;&#x800C;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x662F;&#x5BF9;&#x5168;&#x91CF;&#x6570;&#x636E;&#x505A;&#x7EDF;&#x8BA1;&#x5F97;&#x5230;&#x7684;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x6240;&#x6709;&#x4EBA;&#x90FD;&#x505A;&#x8840;&#x6DB2;&#x6D4B;&#x8BD5;&#xFF0C;&#x624D;&#x80FD;&#x5F97;&#x5230;&#x5065;&#x5EB7;&#x4EBA;&#x8FD4;&#x56DE;&#x9634;&#x6027;&#x7ED3;&#x679C;&#x7684;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x3002;&#x663E;&#x7136;&#xFF0C;&#x5BF9;&#x5168;&#x91CF;&#x6570;&#x636E;&#x505A;&#x7EDF;&#x8BA1;&#x662F;&#x4E0D;&#x73B0;&#x5B9E;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4F1A;&#x9009;&#x53D6;&#x4E00;&#x4E2A;&#x6837;&#x672C;&#xFF0C;&#x5982;1000&#x4EBA;&#xFF0C;&#x5BF9;&#x4ED6;&#x4EEC;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x5E76;&#x8BA1;&#x7B97;&#x6982;&#x7387;&#x3002;&#x5927;&#x90E8;&#x5206;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8FD9;&#x79CD;&#x4F30;&#x8BA1;&#x90FD;&#x662F;&#x63A5;&#x8FD1;&#x4E8E;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x7684;&#x3002;&#x4F46;&#x5F53;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x975E;&#x5E38;&#x5C0F;&#x65F6;&#xFF0C;&#x8FD9;&#x79CD;&#x62BD;&#x6837;&#x7EDF;&#x8BA1;&#x7684;&#x505A;&#x6CD5;&#x5C31;&#x4F1A;&#x6709;&#x95EE;&#x9898;&#x4E86;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x6C11;&#x4E3B;&#x515A;&#x5BF9;&#x7F51;&#x7EDC;&#x975E;&#x6CD5;&#x4F20;&#x64AD;&#x6CD5;&#x6848;&#x7684;&#x5426;&#x51B3;&#x7387;&#x662F;0.03&#xFF0C;&#x5373;P(S=no|&#x6C11;&#x4E3B;&#x515A;) = 0.03&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x5206;&#x522B;&#x9009;&#x53D6;&#x5341;&#x4E2A;&#x6C11;&#x4E3B;&#x515A;&#x548C;&#x5171;&#x548C;&#x515A;&#x4EBA;&#xFF0C;&#x770B;&#x4ED6;&#x4EEC;&#x5BF9;&#x8BE5;&#x6CD5;&#x6848;&#x7684;&#x6295;&#x7968;&#x60C5;&#x51B5;&#xFF0C;&#x4F60;&#x89C9;&#x5F97;&#x5F97;&#x5230;&#x7684;&#x6982;&#x7387;&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;&#x7B54;&#x6848;&#x5F88;&#x53EF;&#x80FD;&#x662F;0&#x3002;</p>
+<p>&#x4ECE;&#x4E0A;&#x4E00;&#x8282;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#x4E5F;&#x770B;&#x5230;&#x4E86;&#xFF0C;&#x5728;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x4E2D;&#xFF0C;&#x6982;&#x7387;&#x4E3A;0&#x7684;&#x5F71;&#x54CD;&#x662F;&#x5F88;&#x5927;&#x7684;&#xFF0C;&#x751A;&#x81F3;&#x4F1A;&#x4E0D;&#x987E;&#x5176;&#x4ED6;&#x6982;&#x7387;&#x7684;&#x5927;&#x5C0F;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x62BD;&#x6837;&#x7EDF;&#x8BA1;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#x4F1A;&#x4F4E;&#x4F30;&#x771F;&#x5B9E;&#x6982;&#x7387;&#x3002;</p>
+<h3 id="&#x5982;&#x4F55;&#x89E3;&#x51B3;">&#x5982;&#x4F55;&#x89E3;&#x51B3;</h3>
+<p>&#x6211;&#x4EEC;&#x8BA1;&#x7B97;P(S=no|&#x6C11;&#x4E3B;&#x515A;)&#x7684;&#x516C;&#x5F0F;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-45.png" alt=""></p>
+<p>&#x4E3A;&#x4E86;&#x8868;&#x793A;&#x65B9;&#x4FBF;&#xFF0C;&#x6211;&#x4EEC;&#x91C7;&#x7528;&#x4EE5;&#x4E0B;&#x516C;&#x5F0F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-46.png" alt=""></p>
+<p>&#x5176;&#x4E2D;&#xFF0C;n&#x8868;&#x793A;&#x8BAD;&#x7EC3;&#x96C6;&#x4E2D;y&#x7C7B;&#x522B;&#x7684;&#x8BB0;&#x5F55;&#x6570;&#xFF1B;n<sub>c</sub>&#x8868;&#x793A;y&#x7C7B;&#x522B;&#x4E2D;&#x503C;&#x4E3A;x&#x7684;&#x8BB0;&#x5F55;&#x6570;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x7684;&#x95EE;&#x9898;&#x662F;&#x4E0A;&#x5F0F;&#x4E2D;&#x7684;n<sub>c</sub>&#x53EF;&#x80FD;&#x4E3A;0&#xFF0C;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x662F;&#x5C06;&#x516C;&#x5F0F;&#x53D8;&#x4E3A;&#x4EE5;&#x4E0B;&#x5F62;&#x5F0F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-47.png" alt=""></p>
+<p><em>&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x6458;&#x81EA;Tom Mitchell&#x300A;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x300B;&#x7684;&#x7B2C;179&#x9875;&#x3002;</em></p>
+<p>m&#x662F;&#x4E00;&#x4E2A;&#x5E38;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x7B49;&#x6548;&#x6837;&#x672C;&#x5927;&#x5C0F;&#x3002;&#x51B3;&#x5B9A;&#x5E38;&#x6570;m&#x7684;&#x65B9;&#x6CD5;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x503C;&#x7684;&#x7C7B;&#x522B;&#x6765;&#x4F5C;&#x4E3A;m&#xFF0C;&#x6BD4;&#x5982;&#x6295;&#x7968;&#x6709;&#x8D5E;&#x6210;&#x548C;&#x5426;&#x51B3;&#x4E24;&#x79CD;&#x7C7B;&#x522B;&#xFF0C;&#x6240;&#x4EE5;m&#x5C31;&#x4E3A;2&#x3002;p&#x5219;&#x662F;&#x76F8;&#x5E94;&#x7684;&#x5148;&#x9A8C;&#x6982;&#x7387;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x8D5E;&#x6210;&#x548C;&#x5426;&#x51B3;&#x7684;&#x6982;&#x7387;&#x5206;&#x522B;&#x662F;0.5&#xFF0C;&#x90A3;p&#x5C31;&#x662F;0.5&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x56DE;&#x5230;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x770B;&#x770B;&#x8981;&#x5982;&#x4F55;&#x5E94;&#x7528;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;&#x4E0B;&#x8868;&#x662F;&#x6295;&#x7968;&#x7684;&#x60C5;&#x51B5;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-48.png" alt=""></p>
+<p>X&#x5148;&#x751F;&#x5BF9;&#x7F51;&#x7EDC;&#x5B89;&#x5168;&#x6CD5;&#x6848;&#x6295;&#x4E86;&#x5426;&#x51B3;&#x7968;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6765;&#x8BA1;&#x7B97;&#x5171;&#x548C;&#x515A;&#x5BF9;&#x5B89;&#x5168;&#x6CD5;&#x6848;&#x6295;&#x5426;&#x51B3;&#x7968;&#x7684;&#x6982;&#x7387;&#x3002;&#x65B0;&#x7684;&#x516C;&#x5F0F;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-47.png" alt=""></p>
+<p>&#x5176;&#x4E2D;n&#x662F;&#x5171;&#x548C;&#x515A;&#x7684;&#x4EBA;&#x6570;100&#xFF0C;n<sub>c</sub>&#x662F;&#x5171;&#x548C;&#x515A;&#x5BF9;&#x5B89;&#x5168;&#x6CD5;&#x6848;&#x6295;&#x5426;&#x51B3;&#x7968;&#x7684;&#x4EBA;&#x6570;1&#xFF0C;m&#x662F;2&#xFF0C;p&#x662F;0.5&#xFF0C;&#x56E0;&#x6B64;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-49.png" alt=""></p>
+<p>&#x518D;&#x8BA1;&#x7B97;&#x6C11;&#x4E3B;&#x515A;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-50.png" alt=""></p>
+<p>&#x4EE3;&#x5165;&#x4E4B;&#x524D;&#x7528;&#x5230;&#x7684;&#x8868;&#x683C;&#x4E2D;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-51.png" alt=""></p>
+<p>&#x5BF9;&#x5269;&#x4F59;&#x4E09;&#x6761;&#x6CD5;&#x6848;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#xFF0C;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-52.png" alt=""></p>
+<p>&#x56E0;&#x6B64;&#xFF0C;X&#x5148;&#x751F;&#x7684;&#x515A;&#x6D3E;&#x662F;&#x6C11;&#x4E3B;&#x515A;&#xFF0C;&#x8FD9;&#x548C;&#x6211;&#x4EEC;&#x7684;&#x76F4;&#x89C9;&#x4E00;&#x81F4;&#x3002;</p>
+<h3 id="&#x4E00;&#x70B9;&#x8BF4;&#x660E;">&#x4E00;&#x70B9;&#x8BF4;&#x660E;</h3>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x516C;&#x5F0F;&#x91CC;&#x7684;m&#x90FD;&#x662F;2&#xFF0C;&#x4F46;&#x8FD9;&#x5E76;&#x4E0D;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x96C6;&#x4E5F;&#x662F;&#x8FD9;&#x6837;&#x3002;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x505A;&#x7684;&#x5065;&#x5EB7;&#x624B;&#x73AF;&#x95EE;&#x5377;&#x8C03;&#x67E5;&#xFF0C;&#x8FD0;&#x52A8;&#x76EE;&#x7684;&#x6709;&#x4E09;&#x4E2A;&#x9009;&#x9879;&#xFF0C;&#x662F;&#x5426;&#x9002;&#x5E94;&#x9AD8;&#x79D1;&#x6280;&#x5219;&#x6709;&#x4E24;&#x4E2A;&#x9009;&#x9879;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x8BA1;&#x7B97;&#x8FD0;&#x52A8;&#x76EE;&#x7684;&#x6982;&#x7387;&#x65F6;m=3&#x3001;p=1/3&#xFF0C;&#x4EE3;&#x5165;&#x516C;&#x5F0F;&#x5373;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-53.png" alt=""></p>
+<h2 id="&#x6570;&#x503C;&#x578B;&#x6570;&#x636E;">&#x6570;&#x503C;&#x578B;&#x6570;&#x636E;</h2>
+<p>&#x4F60;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x6CE8;&#x610F;&#x5230;&#xFF0C;&#x5728;&#x8BA8;&#x8BBA;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7684;&#x90FD;&#x662F;&#x6570;&#x503C;&#x578B;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x5728;&#x5B66;&#x4E60;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x65F6;&#xFF0C;&#x7528;&#x7684;&#x662F;&#x5206;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x4EBA;&#x4EEC;&#x5BF9;&#x6CD5;&#x6848;&#x7684;&#x6295;&#x7968;&#x6709;&#x8D5E;&#x6210;&#x548C;&#x5426;&#x51B3;&#x4E24;&#x7C7B;&#xFF1B;&#x97F3;&#x4E50;&#x5BB6;&#x53EF;&#x4EE5;&#x7528;&#x4ED6;&#x4EEC;&#x6F14;&#x594F;&#x7684;&#x4E50;&#x5668;&#x6765;&#x5206;&#x7C7B;&#x7B49;&#x7B49;&#x3002;&#x8FD9;&#x4E9B;&#x5206;&#x7C7B;&#x4E4B;&#x95F4;&#x662F;&#x6CA1;&#x6709;&#x8DDD;&#x79BB;&#x7684;&#xFF0C;&#x8428;&#x514B;&#x65AF;&#x624B;&#x548C;&#x94A2;&#x7434;&#x5BB6;&#x7684;&#x8DDD;&#x79BB;&#x5E76;&#x4E0D;&#x4F1A;&#x6BD4;&#x9F13;&#x624B;&#x8FD1;&#x3002;&#x800C;&#x6570;&#x503C;&#x578B;&#x6570;&#x636E;&#x5219;&#x6709;&#x8FD9;&#x79CD;&#x8FDC;&#x8FD1;&#x4E4B;&#x5206;&#x3002;</p>
+<p>&#x5728;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x5BF9;&#x4E8B;&#x7269;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#xFF0C;&#x8FD9;&#x79CD;&#x8BA1;&#x6570;&#x5219;&#x662F;&#x53EF;&#x4EE5;&#x5EA6;&#x91CF;&#x7684;&#x3002;&#x5BF9;&#x4E8E;&#x6570;&#x503C;&#x578B;&#x7684;&#x6570;&#x636E;&#x8981;&#x5982;&#x4F55;&#x8BA1;&#x6570;&#x5462;&#xFF1F;&#x901A;&#x5E38;&#x6709;&#x4E24;&#x79CD;&#x505A;&#x6CD5;&#xFF1A;</p>
+<h3 id="&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;&#x533A;&#x5206;&#x7C7B;&#x522B;">&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;&#x533A;&#x5206;&#x7C7B;&#x522B;</h3>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5212;&#x5B9A;&#x51E0;&#x4E2A;&#x8303;&#x56F4;&#x4F5C;&#x4E3A;&#x5206;&#x7C7B;&#xFF0C;&#x5982;&#xFF1A;</p>
+<ul>
+<li>&#x5E74;&#x9F84;<ul>
+<li>&lt; 18</li>
+<li>18 - 22</li>
+<li>23 - 30</li>
+<li>31 - 40</li>
+<li><blockquote>
+<p>40</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>&#x5E74;&#x85AA;<ul>
+<li><blockquote>
+<p>$200,000</p>
+</blockquote>
+</li>
+<li>150,000 - 200,000</li>
+<li>100,000 - 150,000</li>
+<li>60,000 - 100,000</li>
+<li>40,000 - 60,000</li>
+</ul>
+</li>
+</ul>
+<p>&#x5212;&#x5206;&#x7C7B;&#x522B;&#x540E;&#xFF0C;&#x8FDB;&#x884C;&#x53EF;&#x4EE5;&#x5E94;&#x7528;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x4E86;&#x3002;</p>
+<h3 id="&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;&#x9AD8;&#x65AF;&#x5206;&#x5E03;">&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;&#x9AD8;&#x65AF;&#x5206;&#x5E03;</h3>
+<p><img src="img/chapter-6/chapter-6-54.png" alt=""></p>
+<blockquote>
+<p>&#x6211;&#x60F3;&#x5C06;&#x6536;&#x5165;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x5E94;&#x7528;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x3002;</p>
+<p>&#x4F60;&#x7684;&#x505A;&#x6CD5;&#x5DF2;&#x7ECF;&#x8FC7;&#x65F6;&#x4E86;&#xFF0C;&#x6211;&#x4F1A;&#x4F7F;&#x7528;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x548C;&#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#x6765;&#x505A;&#x3002;</p>
+</blockquote>
+<p>&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x548C;&#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#x8FD9;&#x4E24;&#x4E2A;&#x8BCD;&#x542C;&#x8D77;&#x6765;&#x5F88;&#x9177;&#xFF0C;&#x4ED6;&#x4EEC;&#x7684;&#x4F5C;&#x7528;&#x4E5F;&#x975E;&#x5E38;&#x5927;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C06;&#x5B66;&#x4E60;&#x5982;&#x4F55;&#x5728;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x4E2D;&#x4F7F;&#x7528;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x3002;</p>
+<p>&#x9996;&#x5148;&#xFF0C;&#x6211;&#x4EEC;&#x4E3A;&#x5065;&#x5EB7;&#x624B;&#x73AF;&#x7684;&#x4F8B;&#x5B50;&#x589E;&#x52A0;&#x4E00;&#x5217;&#x6536;&#x5165;&#x5C5E;&#x6027;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-55.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x770B;&#x8D2D;&#x4E70;i500&#x7684;&#x7528;&#x6237;&#x7684;&#x6536;&#x5165;&#x60C5;&#x51B5;&#xFF0C;&#x6BD4;&#x5982;&#x53D6;&#x5E73;&#x5747;&#x503C;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-56.png" alt=""></p>
+<p>&#x8FD8;&#x53EF;&#x4EE5;&#x6C42;&#x51FA;&#x6807;&#x51C6;&#x5DEE;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-57.png" alt=""></p>
+<p>&#x6807;&#x51C6;&#x5DEE;&#x662F;&#x7528;&#x6765;&#x8861;&#x91CF;&#x6570;&#x636E;&#x7684;&#x79BB;&#x6563;&#x7A0B;&#x5EA6;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x63A5;&#x8FD1;&#x4E8E;&#x5E73;&#x5747;&#x503C;&#xFF0C;&#x90A3;&#x6807;&#x51C6;&#x5DEE;&#x4E5F;&#x4F1A;&#x6BD4;&#x8F83;&#x5C0F;&#x3002;&#x901A;&#x8FC7;&#x516C;&#x5F0F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BA1;&#x7B97;&#x5F97;&#x5230;i500&#x7528;&#x6237;&#x7684;&#x6536;&#x5165;&#x6807;&#x51C6;&#x5DEE;&#x662F;20.108&#x3002;</p>
+<h3 id="&#x603B;&#x4F53;&#x6807;&#x51C6;&#x5DEE;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;">&#x603B;&#x4F53;&#x6807;&#x51C6;&#x5DEE;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;</h3>
+<p>&#x4E0A;&#x9762;&#x7684;&#x6807;&#x51C6;&#x5DEE;&#x516C;&#x5F0F;&#x662F;&#x603B;&#x4F53;&#x6807;&#x51C6;&#x5DEE;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x7EDF;&#x8BA1;&#x624D;&#x80FD;&#x5F97;&#x51FA;&#xFF0C;&#x6BD4;&#x5982;&#x7EDF;&#x8BA1;500&#x540D;&#x5B66;&#x751F;&#x7684;&#x6210;&#x7EE9;&#xFF0C;&#x5C31;&#x80FD;&#x8BA1;&#x7B97;&#x51FA;&#x603B;&#x4F53;&#x6807;&#x51C6;&#x5DEE;&#x3002;&#x4F46;&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x603B;&#x4F53;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6BD4;&#x5982;&#x8981;&#x7EDF;&#x8BA1;&#x65B0;&#x58A8;&#x897F;&#x54E5;&#x5317;&#x90E8;&#x9E7F;&#x9F20;&#x7684;&#x91CD;&#x91CF;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x53EF;&#x80FD;&#x5BF9;&#x6240;&#x6709;&#x7684;&#x9E7F;&#x9F20;&#x8FDB;&#x884C;&#x79F0;&#x91CD;&#xFF0C;&#x53EA;&#x80FD;&#x9009;&#x53D6;&#x4E00;&#x90E8;&#x5206;&#x6837;&#x672C;&#xFF0C;&#x8FD9;&#x65F6;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x7684;&#x5C31;&#x662F;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-58.png" alt=""></p>
+<p>&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x7684;&#x516C;&#x5F0F;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-59.png" alt=""></p>
+<p>&#x6240;&#x4EE5;&#x8BA1;&#x7B97;&#x5F97;&#x5230;i500&#x7528;&#x6237;&#x6536;&#x5165;&#x7684;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x662F;21.327&#x3002;&#x4E0B;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x90FD;&#x4F1A;&#x4F7F;&#x7528;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x3002;</p>
+<p>&#x4F60;&#x53EF;&#x80FD;&#x542C;&#x8BF4;&#x8FC7;&#x6B63;&#x6001;&#x5206;&#x5E03;&#x3001;&#x949F;&#x578B;&#x66F2;&#x7EBF;&#x3001;&#x9AD8;&#x65AF;&#x5206;&#x5E03;&#x7B49;&#x672F;&#x8BED;&#xFF0C;&#x4ED6;&#x4EEC;&#x6307;&#x7684;&#x662F;&#x540C;&#x4E00;&#x4EF6;&#x4E8B;&#xFF1A;68%&#x7684;&#x6570;&#x636E;&#x4F1A;&#x843D;&#x5728;&#x6807;&#x51C6;&#x5DEE;&#x4E3A;1&#x7684;&#x8303;&#x56F4;&#x5185;&#xFF0C;95%&#x7684;&#x6570;&#x636E;&#x4F1A;&#x843D;&#x5728;&#x6807;&#x51C6;&#x5DEE;&#x4E3A;2&#x7684;&#x8303;&#x56F4;&#x5185;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-60.png" alt=""></p>
+<p>&#x5728;&#x6211;&#x4EEC;&#x7684;&#x793A;&#x4F8B;&#x4E2D;&#xFF0C;&#x5E73;&#x5747;&#x503C;&#x662F;106.111&#xFF0C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x662F;21.327&#xFF0C;&#x56E0;&#x6B64;&#x8D2D;&#x4E70;i500&#x7684;&#x7528;&#x6237;&#x4E2D;&#x6709;95%&#x7684;&#x4EBA;&#x6536;&#x5165;&#x5728;42,660&#x7F8E;&#x5143;&#x81F3;149,770&#x7F8E;&#x5143;&#x4E4B;&#x95F4;&#x3002;&#x5982;&#x679C;&#x6211;&#x95EE;&#x4F60;P(100k|i500)&#x7684;&#x6982;&#x7387;&#x6709;&#x591A;&#x5927;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x56DE;&#x7B54;&#x975E;&#x5E38;&#x5927;&#xFF1B;&#x5982;&#x679C;&#x95EE;&#x4F60;P(20k|i500)&#x7684;&#x6982;&#x7387;&#x6709;&#x591A;&#x5927;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x56DE;&#x7B54;&#x57FA;&#x672C;&#x4E0D;&#x53EF;&#x80FD;&#x3002;</p>
+<p>&#x7528;&#x516C;&#x5F0F;&#x6765;&#x8868;&#x793A;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-61.png" alt=""></p>
+<p><img src="img/chapter-6/chapter-6-62.png" alt=""></p>
+<blockquote>
+<p>&#x6BCF;&#x6B21;&#x51FA;&#x73B0;&#x8FD9;&#x4E9B;&#x516C;&#x5F0F;&#x65F6;&#x6211;&#x90FD;&#x60F3;&#x63D0;&#x9192;&#x8BFB;&#x8005;&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x7D27;&#x5F20;&#xFF0C;&#x5176;&#x5B9E;&#x4ED6;&#x4EEC;&#x53EA;&#x662F;&#x770B;&#x8D77;&#x6765;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#xFF0C;&#x53EA;&#x9700;&#x4E00;&#x6B65;&#x4E00;&#x6B65;&#x62C6;&#x89E3;&#x5F00;&#x5C31;&#x80FD;&#x7406;&#x89E3;&#x4E86;&#x3002;&#x6570;&#x636E;&#x6316;&#x6398;&#x5B66;&#x5230;&#x540E;&#x9762;&#x4F1A;&#x9047;&#x5230;&#x5404;&#x79CD;&#x590D;&#x6742;&#x7684;&#x516C;&#x5F0F;&#xFF0C;&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x88AB;&#x4ED6;&#x4EEC;&#x7684;&#x5916;&#x8868;&#x5413;&#x5230;&#x3002;</p>
+</blockquote>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x9010;&#x6B65;&#x62C6;&#x89E3;&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x3002;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x8981;&#x8BA1;&#x7B97;P(100k|i500)&#x7684;&#x6982;&#x7387;&#xFF0C;&#x5373;&#x8D2D;&#x4E70;i500&#x7684;&#x7528;&#x6237;&#x4E2D;&#x6536;&#x5165;&#x662F;100,000&#x7F8E;&#x5143;&#x7684;&#x6982;&#x7387;&#x3002;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x8BA1;&#x7B97;&#x8FC7;&#x8D2D;&#x4E70;i500&#x7684;&#x7528;&#x6237;&#x5E73;&#x5747;&#x6536;&#x5165;&#x4EE5;&#x53CA;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#xFF0C;&#x6211;&#x4EEC;&#x7528;&#x5E0C;&#x814A;&#x5B57;&#x6BCD;&#x3BC;&#xFF08;&#x8BFB;&#x201C;&#x8C2C;&#x201D;&#xFF09;&#x6765;&#x8868;&#x793A;&#x5E73;&#x5747;&#x503C;&#xFF0C;&#x3C3;&#xFF08;&#x8BFB;&#x201C;&#x897F;&#x683C;&#x739B;&#x201D;&#xFF09;&#x6765;&#x8868;&#x793A;&#x6807;&#x51C6;&#x5DEE;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-63.png" alt=""></p>
+<p><img src="img/chapter-6/chapter-6-64.png" alt=""></p>
+<p><img src="img/chapter-6/chapter-6-65.png" alt=""></p>
+<p><img src="img/chapter-6/chapter-6-66.png" alt=""></p>
+<p>e&#x662F;&#x81EA;&#x7136;&#x5E38;&#x6570;&#xFF0C;&#x7EA6;&#x7B49;&#x4E8E;2.718&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-67.png" alt=""></p>
+<p><strong>&#x7EC3;&#x4E60;</strong></p>
+<p>&#x4E0B;&#x8868;&#x4E2D;&#x5217;&#x51FA;&#x4E86;&#x52A0;&#x4ED1;&#x516C;&#x91CC;&#x6570;&#x4E3A;35&#x7684;&#x8F66;&#x578B;&#x7684;&#x9A6C;&#x529B;&#xFF08;HP&#xFF09;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x60F3;&#x77E5;&#x9053;&#x540C;&#x6837;&#x662F;35&#x52A0;&#x4ED1;&#x516C;&#x91CC;&#x7684;Datsun 280z&#x9A6C;&#x529B;&#x4E3A;132&#x7684;&#x6982;&#x7387;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-68.png" alt=""></p>
+<p><img src="img/chapter-6/chapter-6-69.png" alt=""></p>
+<p>&#x7ED3;&#x679C;&#x8868;&#x660E;&#x8FD9;&#x4E2A;&#x6982;&#x7387;&#x975E;&#x5E38;&#x4F4E;&#xFF0C;&#x800C;&#x4E8B;&#x5B9E;&#x4E0A;&#x8FD9;&#x8F86;&#x8F66;&#x5C31;&#x662F;132&#x9A6C;&#x529B;&#x3002;</p>
+<h3 id="&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x63D0;&#x793A;">&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x63D0;&#x793A;</h3>
+<p>&#x5728;&#x8BAD;&#x7EC3;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x5206;&#x7C7B;&#x5668;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x8BB2;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x7684;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x8BA1;&#x7B97;&#x51FA;&#x6765;&#xFF0C;&#x800C;&#x5206;&#x7C7B;&#x9636;&#x6BB5;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x5C31;&#x80FD;&#x5B9E;&#x73B0;&#x4E86;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> math
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pdf</span><span class="hljs-params">(mean, ssd, x)</span>:</span>
+    <span class="hljs-string">&quot;&quot;&quot;&#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#xFF0C;&#x8BA1;&#x7B97;P(x|y)&quot;&quot;&quot;</span>
+    ePart = math.pow(math.e, -(x - mean) ** <span class="hljs-number">2</span> / (<span class="hljs-number">2</span> * ssd ** <span class="hljs-number">2</span>))
+    <span class="hljs-keyword">return</span> (<span class="hljs-number">1.0</span> / (math.sqrt(<span class="hljs-number">2</span> * math.pi) * ssd)) * ePart
+</code></pre>
+<p>&#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span>pdf(<span class="hljs-number">106.111</span>, <span class="hljs-number">21.327</span>, <span class="hljs-number">100</span>)
+<span class="hljs-number">0.017953602706962717</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>pdf(<span class="hljs-number">72.875</span>, <span class="hljs-number">9.804</span>, <span class="hljs-number">132</span>)
+<span class="hljs-number">5.152283971078022e-10</span>
+</code></pre>
+<p><img src="img/chapter-6/chapter-6-70.png" alt=""></p>
+<blockquote>
+<p>&#x4F11;&#x606F;&#x4E00;&#x4E0B;&#x5427;</p>
+</blockquote>
+<h2 id="&#x4F7F;&#x7528;python&#x5B9E;&#x73B0;">&#x4F7F;&#x7528;Python&#x5B9E;&#x73B0;</h2>
+<h3 id="&#x8BAD;&#x7EC3;&#x9636;&#x6BB5;">&#x8BAD;&#x7EC3;&#x9636;&#x6BB5;</h3>
+<p>&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x9700;&#x8981;&#x7528;&#x5230;&#x5148;&#x9A8C;&#x6982;&#x7387;&#x548C;&#x6761;&#x4EF6;&#x6982;&#x7387;&#x3002;&#x8BA9;&#x6211;&#x4EEC;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#x6C11;&#x4E3B;&#x515A;&#x548C;&#x5171;&#x548C;&#x515A;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;&#x5148;&#x9A8C;&#x6982;&#x7387;&#x6307;&#x7684;&#x662F;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x638C;&#x63E1;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x6BD4;&#x5982;&#x7F8E;&#x56FD;&#x8BAE;&#x4F1A;&#x4E2D;&#x6709;233&#x540D;&#x5171;&#x548C;&#x515A;&#x4EBA;&#xFF0C;200&#x540D;&#x6C11;&#x4E3B;&#x515A;&#x4EBA;&#xFF0C;&#x90A3;&#x5171;&#x548C;&#x515A;&#x4EBA;&#x51FA;&#x73B0;&#x7684;&#x6982;&#x7387;&#x5C31;&#x662F;&#xFF1A;</p>
+<p>P(&#x5171;&#x548C;&#x515A;) = 233 / 433 = 0.54</p>
+<p>&#x6211;&#x4EEC;&#x7528;P(h)&#x6765;&#x8868;&#x793A;&#x5148;&#x9A8C;&#x6982;&#x7387;&#x3002;&#x800C;&#x6761;&#x4EF6;&#x6982;&#x7387;P(h|D)&#x5219;&#x8868;&#x793A;&#x5728;&#x5DF2;&#x77E5;D&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E8B;&#x4EF6;h&#x51FA;&#x73B0;&#x7684;&#x6982;&#x7387;&#x3002;&#x6BD4;&#x5982;&#x8BF4;P(&#x6C11;&#x4E3B;&#x515A;|&#x6CD5;&#x6848;1=yes)&#x3002;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x516C;&#x5F0F;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x8BA1;&#x7B97;&#x7684;&#x662F;P(D|h)&#xFF0C;&#x5982;P(&#x6CD5;&#x6848;1=yes|&#x6C11;&#x4E3B;&#x515A;)&#x3002;</p>
+<p>&#x5728;&#x4E4B;&#x524D;&#x7684;Python&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x7528;&#x5B57;&#x5178;&#x6765;&#x8868;&#x793A;&#x8FD9;&#x4E9B;&#x6982;&#x7387;&#xFF1A;</p>
+<pre><code class="lang-python">{<span class="hljs-string">&apos;democrat&apos;</span>: {<span class="hljs-string">&apos;bill 1&apos;</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">0.333</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">0.667</span>},
+              <span class="hljs-string">&apos;bill 2&apos;</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">0.778</span>, <span class="hljs-string">&apos;moderate&apos;</span>: <span class="hljs-number">0.222</span>}},
+ <span class="hljs-string">&apos;republican&apos;</span>: {<span class="hljs-string">&apos;bill 1&apos;</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">0.811</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">0.189</span>},
+                <span class="hljs-string">&apos;bill 2&apos;</span>: {<span class="hljs-string">&apos;yes&apos;</span>: <span class="hljs-number">0.250</span>, <span class="hljs-string">&apos;no&apos;</span>: <span class="hljs-number">0.750</span>}}}
+</code></pre>
+<p>&#x6240;&#x4EE5;&#x6C11;&#x4E3B;&#x515A;&#x4E2D;&#x5BF9;&#x6CD5;&#x6848;1&#x6295;&#x8D5E;&#x6210;&#x7968;&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1A;P(bill 1=yes|&#x6C11;&#x4E3B;&#x515A;) = 0.667&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5206;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6211;&#x4EEC;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x4FDD;&#x5B58;&#x6982;&#x7387;&#xFF0C;&#x800C;&#x5BF9;&#x8FDE;&#x7EED;&#x6027;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x4F7F;&#x7528;&#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x4FDD;&#x5B58;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x3002;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-python">mean = {<span class="hljs-string">&apos;democrat&apos;</span>: {<span class="hljs-string">&apos;age&apos;</span>: <span class="hljs-number">57</span>, <span class="hljs-string">&apos;years served&apos;</span>: <span class="hljs-number">12</span>},
+        <span class="hljs-string">&apos;republican&apos;</span>: {<span class="hljs-string">&apos;age&apos;</span>: <span class="hljs-number">53</span>, <span class="hljs-string">&apos;years served&apos;</span>: <span class="hljs-number">7</span>}}
+ssd = {<span class="hljs-string">&apos;democrat&apos;</span>: {<span class="hljs-string">&apos;age&apos;</span>: <span class="hljs-number">7</span>, <span class="hljs-string">&apos;years served&apos;</span>: <span class="hljs-number">3</span>},
+       <span class="hljs-string">&apos;republican&apos;</span>: {<span class="hljs-string">&apos;age&apos;</span>: <span class="hljs-number">5</span>, <span class="hljs-string">&apos;years served&apos;</span>: <span class="hljs-number">5</span>}}
+</code></pre>
+<p>&#x548C;&#x4E4B;&#x524D;&#x4E00;&#x6837;&#xFF0C;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x884C;&#x8868;&#x793A;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x7279;&#x5F81;&#x503C;&#x4F7F;&#x7528;&#x5236;&#x8868;&#x7B26;&#x5206;&#x9694;&#xFF0C;&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x662F;&#x6BD4;&#x9A6C;&#x5370;&#x7B2C;&#x5B89;&#x4EBA;&#x7CD6;&#x5C3F;&#x75C5;&#x7684;&#x6570;&#x636E;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-71.png" alt=""></p>
+<p>&#x524D;&#x516B;&#x5217;&#x662F;&#x7279;&#x5F81;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x5217;&#x662F;&#x5206;&#x7C7B;&#xFF08;1-&#x60A3;&#x75C5;&#xFF0C;0-&#x5065;&#x5EB7;&#xFF09;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x540C;&#x6837;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x683C;&#x5F0F;&#x5B57;&#x7B26;&#x4E32;&#x6765;&#x8868;&#x793A;&#x6BCF;&#x4E00;&#x884C;&#x8BB0;&#x5F55;&#xFF1A;</p>
+<ul>
+<li><code>attr</code>&#x8868;&#x793A;&#x8FD9;&#x4E00;&#x5217;&#x662F;&#x5206;&#x7C7B;&#x578B;&#x7684;&#x7279;&#x5F81;</li>
+<li><code>num</code> &#x8868;&#x793A;&#x8FD9;&#x4E00;&#x5217;&#x662F;&#x6570;&#x503C;&#x578B;&#x7684;&#x7279;&#x5F81;</li>
+<li><code>class</code> &#x8868;&#x793A;&#x8FD9;&#x4E00;&#x5217;&#x662F;&#x5206;&#x7C7B;</li>
+</ul>
+<p>&#x5BF9;&#x4E8E;&#x6BD4;&#x9A6C;&#x6570;&#x636E;&#x96C6;&#xFF0C;&#x683C;&#x5F0F;&#x5316;&#x5B57;&#x7B26;&#x4E32;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-string">&quot;num    num    num    num    num    num    num    num    class&quot;</span>
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6765;&#x5B58;&#x50A8;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#xFF0C;&#x770B;&#x4E0B;&#x9762;&#x8FD9;&#x51E0;&#x884C;&#x6570;&#x636E;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-72.png" alt=""></p>
+<p>&#x4E3A;&#x8BA1;&#x7B97;&#x6BCF;&#x4E00;&#x4E2A;&#x5206;&#x7C7B;&#x7684;&#x5E73;&#x5747;&#x503C;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4FDD;&#x5B58;&#x5408;&#x8BA1;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x5B57;&#x5178;&#x6765;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<pre><code class="lang-python">totals = {<span class="hljs-string">&apos;1&apos;</span>: {<span class="hljs-number">1</span>: <span class="hljs-number">8</span>, <span class="hljs-number">2</span>: <span class="hljs-number">378</span>, <span class="hljs-number">3</span>: <span class="hljs-number">182</span>, <span class="hljs-number">4</span>: <span class="hljs-number">102</span>, <span class="hljs-number">5</span>: <span class="hljs-number">1141</span>,
+                <span class="hljs-number">6</span>: <span class="hljs-number">98.2</span>, <span class="hljs-number">7</span>: <span class="hljs-number">2.036</span>, <span class="hljs-number">8</span>: <span class="hljs-number">141</span>},
+          <span class="hljs-string">&apos;0&apos;</span>: {<span class="hljs-number">1</span>: <span class="hljs-number">3</span>, <span class="hljs-number">2</span>: <span class="hljs-number">323</span>, <span class="hljs-number">3</span>: <span class="hljs-number">242</span>, <span class="hljs-number">4</span>: <span class="hljs-number">96</span>, <span class="hljs-number">5</span>: <span class="hljs-number">214</span>,
+                <span class="hljs-number">6</span>: <span class="hljs-number">98.1</span>, <span class="hljs-number">7</span>: <span class="hljs-number">2.006</span>, <span class="hljs-number">8</span>: <span class="hljs-number">76</span>}}
+</code></pre>
+<p>&#x5BF9;&#x4E8E;&#x5206;&#x7C7B;1&#xFF0C;&#x7B2C;&#x4E00;&#x5217;&#x7684;&#x5408;&#x8BA1;&#x662F;8&#xFF08;3 + 4 + 1&#xFF09;&#xFF0C;&#x7B2C;&#x4E8C;&#x5217;&#x7684;&#x5408;&#x8BA1;&#x662F;378&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5206;&#x7C7B;0&#xFF0C;&#x7B2C;&#x4E00;&#x5217;&#x7684;&#x5408;&#x8BA1;&#x662F;3&#xFF08;2 + 1 + 0&#xFF09;&#xFF0C;&#x7B2C;&#x4E8C;&#x5217;&#x7684;&#x5408;&#x8BA1;&#x662F;323&#xFF0C;&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;&#x3002;</p>
+<p>&#x5728;&#x8BA1;&#x7B97;&#x6807;&#x51C6;&#x5DEE;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x4FDD;&#x7559;&#x539F;&#x59CB;&#x7684;&#x503C;&#xFF1A;</p>
+<pre><code class="lang-python">numericValues = {<span class="hljs-string">&apos;1&apos;</span>: {<span class="hljs-number">1</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>], <span class="hljs-number">2</span>: [<span class="hljs-number">78</span>, <span class="hljs-number">111</span>, <span class="hljs-number">189</span>], ...},
+                 <span class="hljs-string">&apos;0&apos;</span>: {<span class="hljs-number">1</span>: [<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], <span class="hljs-number">2</span>: [<span class="hljs-number">142</span>, <span class="hljs-number">81</span>, <span class="hljs-number">100</span>], ...}}
+</code></pre>
+<p>&#x5C06;&#x8FD9;&#x4E9B;&#x903B;&#x8F91;&#x6DFB;&#x52A0;&#x5230;&#x5206;&#x7C7B;&#x5668;&#x7684;<code>__init__</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> math
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Classifier</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, bucketPrefix, testBucketNumber, dataFormat)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;bucketPrefix &#x5206;&#x6876;&#x6570;&#x636E;&#x96C6;&#x6587;&#x4EF6;&#x524D;&#x7F00;
+        testBucketNumber &#x6D4B;&#x8BD5;&#x6876;&#x7F16;&#x53F7;
+        dataFormat &#x6570;&#x636E;&#x683C;&#x5F0F;&#xFF0C;&#x5F62;&#x5982;&#xFF1A;attr attr attr attr class
+        &quot;&quot;&quot;</span>
+        total = <span class="hljs-number">0</span>
+        classes = {}
+        <span class="hljs-comment"># &#x5BF9;&#x5206;&#x7C7B;&#x578B;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x8BA1;&#x6570;</span>
+        counts = {}
+        <span class="hljs-comment"># &#x5BF9;&#x6570;&#x503C;&#x578B;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x6C42;&#x548C;</span>
+        <span class="hljs-comment"># &#x6211;&#x4EEC;&#x4F1A;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x6765;&#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x5206;&#x7C7B;&#x5404;&#x4E2A;&#x7279;&#x5F81;&#x7684;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;</span>
+        totals = {}
+        numericValues = {}
+
+        <span class="hljs-comment"># &#x4ECE;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;&#x6570;&#x636E;</span>
+        self.format = dataFormat.strip().split(<span class="hljs-string">&apos;\t&apos;</span>)
+        self.prior = {}
+        self.conditional = {}
+
+        <span class="hljs-comment"># &#x904D;&#x5386;1-10&#x53F7;&#x6876;</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>):
+            <span class="hljs-comment"># &#x5224;&#x65AD;&#x662F;&#x5426;&#x8DF3;&#x8FC7;</span>
+            <span class="hljs-keyword">if</span> i != testBucketNumber:
+                filename = <span class="hljs-string">&quot;%s-%02i&quot;</span> % (bucketPrefix, i)
+                f = open(filename)
+                lines = f.readlines()
+                f.close()
+                <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines:
+                    fields = line.strip().split(<span class="hljs-string">&apos;\t&apos;</span>)
+                    ignore = []
+                    vector = []
+                    nums = []
+                    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(fields)):
+                        <span class="hljs-keyword">if</span> self.format[i] == <span class="hljs-string">&apos;num&apos;</span>:
+                            nums.append(float(fields[i]))
+                        <span class="hljs-keyword">elif</span> self.format[i] == <span class="hljs-string">&apos;attr&apos;</span>:
+                            vector.append(fields[i])                           
+                        <span class="hljs-keyword">elif</span> self.format[i] == <span class="hljs-string">&apos;comment&apos;</span>:
+                            ignore.append(fields[i])
+                        <span class="hljs-keyword">elif</span> self.format[i] == <span class="hljs-string">&apos;class&apos;</span>:
+                            category = fields[i]
+                    <span class="hljs-comment"># &#x5904;&#x7406;&#x8FD9;&#x6761;&#x8BB0;&#x5F55;</span>
+                    total += <span class="hljs-number">1</span>
+                    classes.setdefault(category, <span class="hljs-number">0</span>)
+                    counts.setdefault(category, {})
+                    totals.setdefault(category, {})
+                    numericValues.setdefault(category, {})
+                    classes[category] += <span class="hljs-number">1</span>
+                    <span class="hljs-comment"># &#x5904;&#x7406;&#x5206;&#x7C7B;&#x578B;&#x6570;&#x636E;</span>
+                    col = <span class="hljs-number">0</span>
+                    <span class="hljs-keyword">for</span> columnValue <span class="hljs-keyword">in</span> vector:
+                        col += <span class="hljs-number">1</span>
+                        counts[category].setdefault(col, {})
+                        counts[category][col].setdefault(columnValue, <span class="hljs-number">0</span>)
+                        counts[category][col][columnValue] += <span class="hljs-number">1</span>
+                    <span class="hljs-comment"># &#x5904;&#x7406;&#x6570;&#x503C;&#x578B;&#x6570;&#x636E;</span>
+                    col = <span class="hljs-number">0</span>
+                    <span class="hljs-keyword">for</span> columnValue <span class="hljs-keyword">in</span> nums:
+                        col += <span class="hljs-number">1</span>
+                        totals[category].setdefault(col, <span class="hljs-number">0</span>)
+                        <span class="hljs-comment">#totals[category][col].setdefault(columnValue, 0)</span>
+                        totals[category][col] += columnValue
+                        numericValues[category].setdefault(col, [])
+                        numericValues[category][col].append(columnValue)
+
+        <span class="hljs-comment"># &#x8BA1;&#x7B97;&#x5148;&#x9A8C;&#x6982;&#x7387;P(h)</span>
+        <span class="hljs-keyword">for</span> (category, count) <span class="hljs-keyword">in</span> classes.items():
+            self.prior[category] = count / total
+
+        <span class="hljs-comment"># &#x8BA1;&#x7B97;&#x6761;&#x4EF6;&#x6982;&#x7387;P(h|D)</span>
+        <span class="hljs-keyword">for</span> (category, columns) <span class="hljs-keyword">in</span> counts.items():
+              self.conditional.setdefault(category, {})
+              <span class="hljs-keyword">for</span> (col, valueCounts) <span class="hljs-keyword">in</span> columns.items():
+                  self.conditional[category].setdefault(col, {})
+                  <span class="hljs-keyword">for</span> (attrValue, count) <span class="hljs-keyword">in</span> valueCounts.items():
+                      self.conditional[category][col][attrValue] = (
+                          count / classes[category])
+        self.tmp =  counts               
+
+        <span class="hljs-comment"># &#x8BA1;&#x7B97;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;</span>
+        self.means = {}
+        self.ssd = {}
+        <span class="hljs-comment"># &#x52A8;&#x624B;&#x5B9E;&#x8DF5;</span>
+</code></pre>
+<p><strong>&#x52A8;&#x624B;&#x5B9E;&#x8DF5;[1]</strong></p>
+<p>&#x4E3A;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x8BA1;&#x7B97;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x8F93;&#x51FA;&#x7684;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span>c = Classifier(<span class="hljs-string">&apos;pimaSmall/pimaSmall&apos;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&apos;num\tnum\tnum\tnum\tnum\tnum\tnum\tnum\tclass&apos;</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>c.ssd
+{<span class="hljs-string">&apos;1&apos;</span>: {<span class="hljs-number">1</span>: <span class="hljs-number">4.21137914295475</span>, <span class="hljs-number">2</span>: <span class="hljs-number">29.52281872377408</span>, ...},
+ <span class="hljs-string">&apos;0&apos;</span>: {<span class="hljs-number">1</span>: <span class="hljs-number">2.54694671925252</span>, <span class="hljs-number">2</span>: <span class="hljs-number">23.454755259159146</span>, ...}}
+<span class="hljs-meta">&gt;&gt;&gt; </span>c.means
+{<span class="hljs-string">&apos;1&apos;</span>: {<span class="hljs-number">1</span>: <span class="hljs-number">5.25</span>, <span class="hljs-number">2</span>: <span class="hljs-number">146.05555555555554</span>, ...},
+ <span class="hljs-string">&apos;0&apos;</span>: {<span class="hljs-number">1</span>: <span class="hljs-number">2.8867924528301887</span>, <span class="hljs-number">2</span>: <span class="hljs-number">111.90566037735849</span>, ...}}
+</code></pre>
+<p><strong>&#x89E3;&#x7B54;</strong></p>
+<pre><code class="lang-python">        <span class="hljs-comment"># &#x8BA1;&#x7B97;&#x5E73;&#x5747;&#x503C;&#x548C;&#x6837;&#x672C;&#x6807;&#x51C6;&#x5DEE;</span>
+        self.means = {}
+        self.ssd = {}
+
+        <span class="hljs-keyword">for</span> (category, columns) <span class="hljs-keyword">in</span> totals.items():
+            self.means.setdefault(category, {})
+            <span class="hljs-keyword">for</span> (col, cTotal) <span class="hljs-keyword">in</span> columns.items():
+                self.means[category][col] = cTotal / classes[category]
+
+        <span class="hljs-keyword">for</span> (category, columns) <span class="hljs-keyword">in</span> numericValues.items():
+            self.ssd.setdefault(category, {})
+            <span class="hljs-keyword">for</span> (col, values) <span class="hljs-keyword">in</span> columns.items():
+                SumOfSquareDifferences = <span class="hljs-number">0</span>
+                theMean = self.means[category][col]
+                <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> values:
+                    SumOfSquareDifferences += (value - theMean)**<span class="hljs-number">2</span>
+                columns[col] = <span class="hljs-number">0</span>
+                self.ssd[category][col] = math.sqrt(SumOfSquareDifferences / (classes[category]  - <span class="hljs-number">1</span>))
+</code></pre>
+<p><strong>&#x52A8;&#x624B;&#x5B9E;&#x8DF5;[2]</strong></p>
+<p>&#x4FEE;&#x6539;&#x5206;&#x7C7B;&#x51FD;&#x6570;<code>classify()</code>&#xFF0C;&#x4F7F;&#x5176;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x5206;&#x7C7B;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-73.png" alt=""></p>
+<pre><code class="lang-python">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classify</span><span class="hljs-params">(self, itemVector, numVector)</span>:</span>
+        <span class="hljs-string">&quot;&quot;&quot;&#x8FD4;&#x56DE;itemVector&#x6240;&#x5C5E;&#x5206;&#x7C7B;&quot;&quot;&quot;</span>
+        results = []
+        sqrt2pi = math.sqrt(<span class="hljs-number">2</span> * math.pi)
+        <span class="hljs-keyword">for</span> (category, prior) <span class="hljs-keyword">in</span> self.prior.items():
+            prob = prior
+            col = <span class="hljs-number">1</span>
+            <span class="hljs-keyword">for</span> attrValue <span class="hljs-keyword">in</span> itemVector:
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> attrValue <span class="hljs-keyword">in</span> self.conditional[category][col]:
+                    <span class="hljs-comment"># &#x8BE5;&#x7279;&#x5F81;&#x503C;&#x6CA1;&#x6709;&#x51FA;&#x73B0;&#x8FC7;&#xFF0C;&#x56E0;&#x6B64;&#x6982;&#x7387;&#x7ED9;0</span>
+                    prob = <span class="hljs-number">0</span>
+                <span class="hljs-keyword">else</span>:
+                    prob = prob * self.conditional[category][col][attrValue]
+                col += <span class="hljs-number">1</span>
+            col = <span class="hljs-number">1</span>
+            <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span>  numVector:
+                mean = self.means[category][col]
+                ssd = self.ssd[category][col]
+                ePart = math.pow(math.e, -(x - mean)**<span class="hljs-number">2</span>/(<span class="hljs-number">2</span>*ssd**<span class="hljs-number">2</span>))
+                prob = prob * ((<span class="hljs-number">1.0</span> / (sqrt2pi*ssd)) * ePart)
+                col += <span class="hljs-number">1</span>
+            results.append((prob, category))
+        <span class="hljs-comment"># &#x8FD4;&#x56DE;&#x6982;&#x7387;&#x6700;&#x9AD8;&#x7684;&#x5206;&#x7C7B;</span>
+        <span class="hljs-comment">#print(results)</span>
+        <span class="hljs-keyword">return</span>(max(results)[<span class="hljs-number">1</span>])
+</code></pre>
+<h3 id="&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7684;&#x6548;&#x679C;&#x8981;&#x6BD4;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x597D;&#x5417;&#xFF1F;">&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7684;&#x6548;&#x679C;&#x8981;&#x6BD4;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x597D;&#x5417;&#xFF1F;</h3>
+<p>&#x4E0A;&#x4E00;&#x7AE0;&#x4E2D;&#x6211;&#x4EEC;&#x5BF9;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x505A;&#x4E86;&#x7EDF;&#x8BA1;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-74.png" alt=""></p>
+<p>&#x4EE5;&#x4E0B;&#x662F;&#x8D1D;&#x53F6;&#x65AF;&#x7B97;&#x6CD5;&#x7684;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-75.png" alt=""></p>
+<p><img src="img/chapter-6/chapter-6-76.png" alt=""></p>
+<blockquote>
+<p>&#x54C7;&#xFF0C;&#x770B;&#x6765;&#x8D1D;&#x53F6;&#x65AF;&#x7684;&#x6548;&#x679C;&#x8981;&#x6BD4;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x6765;&#x5F97;&#x597D;&#x5462;&#xFF01;</p>
+<p>kNN&#x7B97;&#x6CD5;&#x4E2D;&#xFF0C;k=3&#x65F6;&#x7684;Kappa&#x6307;&#x6807;&#x662F;0.35415&#xFF0C;&#x6548;&#x679C;&#x4E00;&#x822C;&#x3002;&#x90A3;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7684;Kappa&#x6307;&#x6807;&#x662F;&#x591A;&#x5C11;&#x5462;&#xFF1F;</p>
+</blockquote>
+<p><img src="img/chapter-6/chapter-6-77.png" alt=""></p>
+<blockquote>
+<p>&#x8D1D;&#x53F6;&#x65AF;&#x7684;Kappa&#x6307;&#x6807;&#x662F;0.4875&#xFF0C;&#x7B26;&#x5408;&#x671F;&#x671B;&#x3002;</p>
+</blockquote>
+<p><strong>&#x56E0;&#x6B64;&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7684;&#x6548;&#x679C;&#x8981;&#x6BD4;&#x8FD1;&#x90BB;&#x7B97;&#x6CD5;&#x597D;&#x3002;</strong></p>
+<p>&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x7684;&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x5B9E;&#x73B0;&#x7B80;&#x5355;&#xFF08;&#x53EA;&#x9700;&#x8BA1;&#x6570;&#x5373;&#x53EF;&#xFF09;</li>
+<li>&#x9700;&#x8981;&#x7684;&#x8BAD;&#x7EC3;&#x96C6;&#x8F83;&#x5C11;</li>
+<li>&#x8FD0;&#x7B97;&#x6548;&#x7387;&#x9AD8;</li>
+</ul>
+<p>&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x7684;&#x4E3B;&#x8981;&#x7F3A;&#x70B9;&#x662F;&#x65E0;&#x6CD5;&#x5B66;&#x4E60;&#x7279;&#x5F81;&#x4E4B;&#x95F4;&#x7684;&#x76F8;&#x4E92;&#x5F71;&#x54CD;&#x3002;&#x6BD4;&#x5982;&#x6211;&#x559C;&#x6B22;&#x5976;&#x916A;&#xFF0C;&#x4E5F;&#x559C;&#x6B22;&#x7C73;&#x996D;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x559C;&#x6B22;&#x4E24;&#x8005;&#x4E00;&#x8D77;&#x5403;&#x3002;</p>
+<p>kNN&#x7B97;&#x6CD5;&#x7684;&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x5B9E;&#x73B0;&#x4E5F;&#x6BD4;&#x8F83;&#x7B80;&#x5355;</li>
+<li>&#x4E0D;&#x9700;&#x8981;&#x6309;&#x7279;&#x5B9A;&#x5F62;&#x5F0F;&#x51C6;&#x5907;&#x6570;&#x636E;</li>
+<li>&#x9700;&#x8981;&#x5927;&#x91CF;&#x5185;&#x5B58;&#x4FDD;&#x5B58;&#x8BAD;&#x7EC3;&#x96C6;&#x6570;&#x636E;</li>
+</ul>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x7684;&#x8BAD;&#x7EC3;&#x96C6;&#x8F83;&#x5927;&#x65F6;&#xFF0C;kNN&#x7B97;&#x6CD5;&#x662F;&#x4E00;&#x4E2A;&#x4E0D;&#x9519;&#x7684;&#x9009;&#x62E9;&#x3002;&#x8FD9;&#x4E2A;&#x7B97;&#x6CD5;&#x7684;&#x7528;&#x9014;&#x5F88;&#x5E7F;&#xFF0C;&#x5305;&#x62EC;&#x63A8;&#x8350;&#x7CFB;&#x7EDF;&#x3001;&#x86CB;&#x767D;&#x8D28;&#x5206;&#x6790;&#x3001;&#x56FE;&#x7247;&#x5206;&#x7C7B;&#x7B49;&#x3002;</p>
+<p><img src="img/chapter-6/chapter-6-78.png" alt=""></p>
+<blockquote>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x53EB;&#x201C;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x201D;&#x5462;&#xFF1F;</p>
+</blockquote>
+<p>&#x6211;&#x4EEC;&#x4E4B;&#x6240;&#x4EE5;&#x80FD;&#x5C06;&#x591A;&#x4E2A;&#x6982;&#x7387;&#x8FDB;&#x884C;&#x76F8;&#x4E58;&#x662F;&#x56E0;&#x4E3A;&#x8FD9;&#x4E9B;&#x6982;&#x7387;&#x90FD;&#x662F;&#x5177;&#x6709;&#x72EC;&#x7ACB;&#x6027;&#x7684;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x6E38;&#x620F;&#x662F;&#x540C;&#x65F6;&#x629B;&#x786C;&#x5E01;&#x548C;&#x63B7;&#x9AB0;&#x5B50;&#xFF0C;&#x9AB0;&#x5B50;&#x7684;&#x70B9;&#x6570;&#x5E76;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x786C;&#x5E01;&#x662F;&#x6B63;&#x9762;&#x8FD8;&#x662F;&#x53CD;&#x9762;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x8BA1;&#x7B97;&#x8054;&#x5408;&#x6982;&#x7387;&#x65F6;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x76F8;&#x4E58;&#x3002;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x8981;&#x8BA1;&#x7B97;&#x540C;&#x65F6;&#x629B;&#x51FA;&#x6B63;&#x9762;&#xFF08;heads&#xFF09;&#x4EE5;&#x53CA;&#x63B7;&#x51FA;6&#x70B9;&#x7684;&#x6982;&#x7387;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-79.png" alt=""></p>
+<p>&#x518D;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x6709;&#x4E00;&#x526F;&#x6251;&#x514B;&#x724C;&#xFF0C;&#x4FDD;&#x7559;&#x6240;&#x6709;&#x9ED1;&#x8272;&#x724C;&#xFF08;26&#x5F20;&#xFF09;&#xFF0C;&#x4EE5;&#x53CA;&#x7EA2;&#x8272;&#x724C;&#x4E2D;&#x7684;&#x4EBA;&#x5934;&#x724C;&#xFF08;6&#x5F20;&#xFF09;&#xFF0C;&#x4E00;&#x5171;32&#x5F20;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x9009;&#x51FA;&#x4E00;&#x5F20;&#x4EBA;&#x5934;&#x724C;&#xFF08;facecard&#xFF09;&#x7684;&#x6982;&#x7387;&#x5C31;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-80.png" alt=""></p>
+<p>&#x9009;&#x51FA;&#x7EA2;&#x8272;&#x724C;&#xFF08;red&#xFF09;&#x7684;&#x6982;&#x7387;&#x662F;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-81.png" alt=""></p>
+<p>&#x90A3;&#x4E48;&#xFF0C;&#x9009;&#x51FA;&#x4E00;&#x5F20;&#x5373;&#x662F;&#x7EA2;&#x8272;&#x724C;&#x53C8;&#x662F;&#x4EBA;&#x5934;&#x724C;&#x7684;&#x6982;&#x7387;&#x662F;&#x591A;&#x5C11;&#x5462;&#xFF1F;&#x76F4;&#x89C9;&#x544A;&#x8BC9;&#x6211;&#x4EEC;<strong>&#x4E0D;&#x80FD;</strong>&#x8FD9;&#x6837;&#x8BA1;&#x7B97;&#xFF1A;</p>
+<p><img src="img/chapter-6/chapter-6-82.png" alt=""></p>
+<p>&#x56E0;&#x4E3A;&#x7EA2;&#x8272;&#x724C;&#x7684;&#x6982;&#x7387;&#x662F;0.1875&#xFF0C;&#x4F46;&#x8FD9;&#x5F20;&#x7EA2;&#x8272;&#x724C;100%&#x662F;&#x4EBA;&#x5934;&#x724C;&#xFF0C;&#x6240;&#x4EE5;&#x7EA2;&#x8272;&#x4EBA;&#x5934;&#x724C;&#x7684;&#x6982;&#x7387;&#x5E94;&#x8BE5;&#x662F;0.1875&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x4E0D;&#x80FD;&#x505A;&#x4E58;&#x6CD5;&#x5C31;&#x662F;&#x56E0;&#x4E3A;&#x8FD9;&#x4E24;&#x4E2A;&#x4E8B;&#x4EF6;&#x4E0D;&#x662F;&#x4E92;&#x76F8;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x5728;&#x9009;&#x62E9;&#x7EA2;&#x8272;&#x724C;&#x65F6;&#xFF0C;&#x4EBA;&#x5934;&#x724C;&#x7684;&#x6982;&#x7387;&#x5C31;&#x53D8;&#x4E86;&#xFF0C;&#x53CD;&#x4E4B;&#x4EA6;&#x7136;&#x3002;</p>
+<p>&#x5728;&#x73B0;&#x5B9E;&#x6570;&#x636E;&#x6316;&#x6398;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x8FD9;&#x79CD;&#x7279;&#x5F81;&#x53D8;&#x91CF;&#x4E4B;&#x95F4;&#x4E0D;&#x72EC;&#x7ACB;&#x7684;&#x60C5;&#x51B5;&#x8FD8;&#x662F;&#x5F88;&#x591A;&#x7684;&#x3002;</p>
+<ul>
+<li>&#x8FD0;&#x52A8;&#x5458;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x8EAB;&#x9AD8;&#x548C;&#x4F53;&#x91CD;&#x4E0D;&#x662F;&#x4E92;&#x76F8;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x9AD8;&#x7684;&#x4EBA;&#x4F53;&#x91CD;&#x4E5F;&#x4F1A;&#x8F83;&#x9AD8;&#x3002;</li>
+<li>&#x5730;&#x533A;&#x90AE;&#x7F16;&#x3001;&#x6536;&#x5165;&#x3001;&#x5E74;&#x9F84;&#xFF0C;&#x8FD9;&#x4E9B;&#x7279;&#x5F81;&#x4E5F;&#x4E0D;&#x5B8C;&#x5168;&#x72EC;&#x7ACB;&#xFF0C;&#x4E00;&#x4E9B;&#x5730;&#x533A;&#x7684;&#x623F;&#x5C4B;&#x90FD;&#x5F88;&#x6602;&#x8D35;&#xFF0C;&#x4E00;&#x4E9B;&#x5730;&#x533A;&#x5219;&#x53EA;&#x6709;&#x623F;&#x8F66;&#xFF1A;&#x52A0;&#x5DDE;&#x5E15;&#x7F57;&#x5965;&#x56FE;&#x5927;&#x591A;&#x662F;20&#x5C81;&#x7684;&#x5E74;&#x8F7B;&#x4EBA;&#xFF0C;&#x800C;&#x4E9A;&#x5229;&#x6851;&#x90A3;&#x5DDE;&#x5219;&#x591A;&#x662F;&#x9000;&#x4F11;&#x4EBA;&#x5458;&#x3002;</li>
+<li>&#x5728;&#x97F3;&#x4E50;&#x57FA;&#x56E0;&#x5DE5;&#x7A0B;&#x4E2D;&#xFF0C;&#x5F88;&#x591A;&#x7279;&#x5F81;&#x4E5F;&#x662F;&#x4E0D;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x97F3;&#x4E50;&#x4E2D;&#x6709;&#x5F88;&#x591A;&#x53D8;&#x97F3;&#x5409;&#x4ED6;&#xFF0C;&#x90A3;&#x5C0F;&#x63D0;&#x7434;&#x7684;&#x6982;&#x7387;&#x5C31;&#x964D;&#x4F4E;&#x4E86;&#x3002;</li>
+<li>&#x8840;&#x6DB2;&#x68C0;&#x9A8C;&#x7684;&#x7ED3;&#x679C;&#x4E2D;&#xFF0C;T4&#x548C;TSH&#x8FD9;&#x4E24;&#x4E2A;&#x6307;&#x6807;&#x901A;&#x5E38;&#x662F;&#x5448;&#x53CD;&#x6BD4;&#x7684;&#x3002;</li>
+</ul>
+<p>&#x518D;&#x4ECE;&#x4F60;&#x8EAB;&#x8FB9;&#x627E;&#x627E;&#x4F8B;&#x5B50;&#xFF0C;&#x6BD4;&#x5982;&#x4F60;&#x7684;&#x8F66;&#xFF0C;&#x5B83;&#x7684;&#x5404;&#x79CD;&#x7279;&#x5F81;&#x4E4B;&#x95F4;&#x6709;&#x76F8;&#x5173;&#x6027;&#x5417;&#xFF1F;&#x4E00;&#x90E8;&#x7535;&#x5F71;&#x5462;&#xFF1F;&#x4E9A;&#x9A6C;&#x900A;&#x4E0A;&#x7684;&#x8D2D;&#x4E70;&#x8BB0;&#x5F55;&#x53C8;&#x5982;&#x4F55;&#xFF1F;</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x5728;&#x4F7F;&#x7528;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E92;&#x76F8;&#x72EC;&#x7ACB;&#x7684;&#x7279;&#x5F81;&#xFF0C;&#x4F46;&#x73B0;&#x5B9E;&#x751F;&#x6D3B;&#x4E2D;&#x5F88;&#x96BE;&#x627E;&#x5230;&#x8FD9;&#x6837;&#x7684;&#x5E94;&#x7528;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x53EA;&#x80FD;&#x5047;&#x8BBE;&#x4ED6;&#x4EEC;&#x662F;&#x72EC;&#x7ACB;&#x7684;&#x4E86;&#xFF01;&#x6211;&#x4EEC;&#x5B8C;&#x5168;&#x5FFD;&#x7565;&#x4E86;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x6B64;&#x624D;&#x79F0;&#x4E3A;&#x201C;&#x6734;&#x7D20;&#x7684;&#x201D;&#xFF08;&#x5929;&#x771F;&#x7684;&#xFF09;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x3002;&#x4E0D;&#x8FC7;&#x4E8B;&#x5B9E;&#x8BC1;&#x660E;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x7684;&#x6548;&#x679C;&#x8FD8;&#x662F;&#x5F88;&#x4E0D;&#x9519;&#x7684;&#x3002;</p>
+<p><strong>&#x52A8;&#x624B;&#x5B9E;&#x8DF5;</strong></p>
+<p>&#x4F60;&#x80FD;&#x5C06;&#x6734;&#x7D20;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x5E94;&#x7528;&#x5230;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x96C6;&#x4E0A;&#x5417;&#xFF1F;&#x6BD4;&#x5982;&#x52A0;&#x4ED1;&#x516C;&#x91CC;&#x6570;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;kNN&#x7B97;&#x6CD5;&#x7684;&#x6B63;&#x786E;&#x7387;&#x662F;53%&#xFF0C;&#x5C1D;&#x8BD5;&#x7528;&#x8D1D;&#x53F6;&#x65AF;&#x65B9;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;&#x5427;&#x3002;</p>
+<pre><code class="lang-python"><span class="hljs-meta">&gt;&gt;&gt; </span>tenfold(<span class="hljs-string">&apos;mpgData/mpgData&apos;</span>, <span class="hljs-string">&apos;class\tattr\tnum\tnum\tnum\tnum\tcomment&apos;</span>)
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="chapter-5.html" class="navigation navigation-prev " aria-label="Previous page: 第五章：进一步探索分类">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="chapter-7.html" class="navigation navigation-next " aria-label="Next page: 第七章：朴素贝叶斯算法和非结构化文本">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"第六章：朴素贝叶斯","level":"1.7","depth":1,"next":{"title":"第七章：朴素贝叶斯算法和非结构化文本","level":"1.8","depth":1,"path":"chapter-7.md","ref":"chapter-7.md","articles":[]},"previous":{"title":"第五章：进一步探索分类","level":"1.6","depth":1,"path":"chapter-5.md","ref":"chapter-5.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter-6.md","mtime":"2019-10-09T05:29:29.939Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-10-09T15:11:23.059Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

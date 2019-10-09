@@ -1,5 +1,7 @@
 在线阅读地址：https://xiao-xiaoming.github.io/DataMiningGuide/
 
+gitbook简易版在线阅读地址：https://xiao-xiaoming.github.io/DataMiningGuide/_book/
+
 #### **移动端可点击左侧左下角按钮展开侧边栏目录！**
 
 #### **左侧侧边栏的最上面的搜索框可进行内容搜索！**
