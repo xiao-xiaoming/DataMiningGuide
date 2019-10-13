@@ -2,6 +2,10 @@
 
 gitbook简易版在线阅读地址：https://xiao-xiaoming.github.io/DataMiningGuide/_book/
 
+pdf文档(gitbook生成)下载：[面向程序员的数据挖掘指南.pdf](https://raw.githubusercontent.com/xiao-xiaoming/DataMiningGuide/master/%E9%9D%A2%E5%90%91%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E6%8C%87%E5%8D%97.pdf)
+
+
+
 #### **移动端可点击左侧左下角按钮展开侧边栏目录！**
 
 #### **左侧侧边栏的最上面的搜索框可进行内容搜索！**
