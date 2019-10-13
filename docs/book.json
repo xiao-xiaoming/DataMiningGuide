@@ -1,0 +1,8 @@
+{
+    "plugins": [ "code","github","back-to-top-button" ],
+    "pluginsConfig": {
+        "github": {
+            "url": "https://github.com/xiao-xiaoming/DataMiningGuide"
+        }
+    }
+}
